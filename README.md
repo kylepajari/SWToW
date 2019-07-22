@@ -31,7 +31,7 @@ W - Speed Up
 
 S - Slow Down
 
-L - Lock on nearest enemy
+L/Middle Mouse Wheel Button - Lock on nearest enemy
 
 F - Special Action
 
