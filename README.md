@@ -14,6 +14,8 @@ Early build contains four levels with four flyable player ships:
 
 
 
+
+
 Controls layed out below:
 
 
@@ -32,6 +34,7 @@ L - Lock on nearest enemy
 F - Special Action
 
 V - Change view
+
 
 
 
