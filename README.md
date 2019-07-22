@@ -23,13 +23,13 @@ Controls layed out below:
 
 Arrow Keys/Mouse - Pitch/Bank
 
-Spacebar/Left Click - Primary Fire
-
-Alt/Right Click - Secondary Fire
-
 W - Speed Up
 
 S - Slow Down
+
+Spacebar/Left Click - Primary Fire
+
+Alt/Right Click - Secondary Fire
 
 L/Middle Mouse Wheel Button - Lock on nearest enemy
 
