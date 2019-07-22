@@ -2,11 +2,17 @@
 Star Wars arcade flight action game.  
 Inspired by Star Wars: Rogue Squadron.
 
-Early build contains four levels with five flyable player ships:
-X-Wing
-A-Wing
-Y-Wing
-Millenium Falcon
+Early build contains four levels with four flyable player ships:
+
+-X-Wing
+
+-A-Wing
+
+-Y-Wing
+
+-Millenium Falcon
+
+
 
 Controls layed out below:
 
