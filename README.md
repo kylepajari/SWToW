@@ -1,7 +1,7 @@
 # SWToW
 Star Wars arcade flight action game.  
 Inspired by Star Wars: Rogue Squadron.
-
+/////////////////////////////////////////////////////////////////////
 Early build contains four levels with four flyable player ships:
 
 -X-Wing
@@ -14,8 +14,7 @@ Early build contains four levels with four flyable player ships:
 
 
 
-
-
+/////////////////////////////////////////////////////////////////////
 Controls layed out below:
 
 
@@ -37,7 +36,7 @@ V - Change view
 
 
 
-
+/////////////////////////////////////////////////////////////////////
 Links to downloadable builds for Windows and Mac, provided by Google Drive:
 
 Windows - https://drive.google.com/open?id=1nS6cM3myPB4CTtLHSRBbrQRcLnbbbKyQ
