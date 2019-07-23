@@ -1,4 +1,4 @@
-# SWToW
+# STar Wars: Tides of War
 Star Wars arcade flight action game.  
 Inspired by Star Wars: Rogue Squadron.
 
@@ -43,6 +43,6 @@ V - Change view
 
 Links to builds for Windows and Mac, provided by Google Drive:
 
-Windows - https://drive.google.com/open?id=1nS6cM3myPB4CTtLHSRBbrQRcLnbbbKyQ
+Windows - https://drive.google.com/open?id=1FtCW_GBRkYzMkUCiILVLRm6UeXmzBPkZ
 
-Mac - https://drive.google.com/open?id=1Y0V5laAOSREHtyU3KqS72bj-iJcCIBps
+Mac - https://drive.google.com/open?id=1GU-OKfIAa99OyLKd0BsNLiOyXSSjyLrN
