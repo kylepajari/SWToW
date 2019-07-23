@@ -1,4 +1,4 @@
-# STar Wars: Tides of War
+# Star Wars: Tides of War
 Star Wars arcade flight action game.  
 Inspired by Star Wars: Rogue Squadron.
 
