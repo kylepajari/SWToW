@@ -1,6 +1,8 @@
 # Star Wars: Tides of War
 Star Wars arcade flight action game.  
 Inspired by Star Wars: Rogue Squadron.
+Craft/Weapon/Background Sounds taken from Star Wars: Rogue Squadron, Music from YouTube.
+Various Models from scifi3d.com
 
 /////////////////////////////////////////////////////////////////////
 
