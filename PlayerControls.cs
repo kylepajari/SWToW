@@ -293,6 +293,32 @@ public class PlayerControls : MonoBehaviour
       fireDelay = 0.18f;
       AmmoUI.GetComponent<CanvasGroup>().alpha = 0;
     }
+    if (transform.name == "SPlayer")
+    {
+      spawnpoint = GameObject.Find("SpawnPoint").GetComponent<Transform>();
+      cannon = transform.Find("cannon");
+      cannon2 = transform.Find("cannon2");
+      etrail = transform.Find("etrail1");
+      etrail2 = transform.Find("etrail2");
+      etrail.GetComponent<Renderer>().enabled = false;
+      etrail2.GetComponent<Renderer>().enabled = false;
+      shoot = sounds[1];
+      death1 = sounds[2];
+      death2 = sounds[3];
+    }
+    if (transform.name == "NPlayer")
+    {
+      spawnpoint = GameObject.Find("SpawnPoint").GetComponent<Transform>();
+      cannon = transform.Find("cannon");
+      cannon2 = transform.Find("cannon2");
+      etrail = transform.Find("etrail");
+      etrail2 = transform.Find("etrail2");
+      etrail.GetComponent<Renderer>().enabled = false;
+      etrail2.GetComponent<Renderer>().enabled = false;
+      shoot = sounds[1];
+      death1 = sounds[2];
+      death2 = sounds[3];
+    }
 
     lifeCount = 3;
     livesText = GameObject.Find("LivesCounter").GetComponent<Text>();
@@ -462,6 +488,14 @@ public class PlayerControls : MonoBehaviour
         {
           playercam.transform.localPosition = new Vector3(0f, 9f, 36f);
         }
+        if (transform.name == "SPlayer")
+        {
+          playercam.transform.localPosition = new Vector3(0f, 150f, 800f);
+        }
+        if (transform.name == "NPlayer")
+        {
+          playercam.transform.localPosition = new Vector3(0f, 215f, 980f);
+        }
         playercam.transform.localRotation = Quaternion.Euler(0, 180, 0);
         //If Player presses speed up or slow down keys while looking back, adjust speed approprietly
         if (Input.GetKeyDown(KeyCode.W))
@@ -486,7 +520,15 @@ public class PlayerControls : MonoBehaviour
       {
         lookingback = false;
         playercam.transform.localPosition = playercamOrigPos;
-        playercam.transform.localRotation = Quaternion.Euler(0, 0, 0);
+        if (transform.name == "SPlayer" && view == 2)
+        {
+          playercam.transform.localRotation = Quaternion.Euler(0, 180, 0);
+        }
+        else
+        {
+          playercam.transform.localRotation = Quaternion.Euler(0, 0, 0);
+        }
+
       }
 
       //Special funstions(varys between ships)
@@ -564,6 +606,22 @@ public class PlayerControls : MonoBehaviour
               new Vector3(playercamOrigPos.x, playercamOrigPos.y, playercamOrigPos.z - 600), 0.5f));
             }
           }
+          else if (transform.name == "SPlayer")
+          {
+            if (view != 1 && view != 2)
+            {
+              task = new Task(lerpPos(playercam.transform.localPosition,
+              new Vector3(playercamOrigPos.x, playercamOrigPos.y, playercamOrigPos.z - 120), 0.5f));
+            }
+          }
+          else if (transform.name == "NPlayer")
+          {
+            if (view != 2)
+            {
+              task = new Task(lerpPos(playercam.transform.localPosition,
+              new Vector3(playercamOrigPos.x, playercamOrigPos.y, playercamOrigPos.z - 120), 0.5f));
+            }
+          }
           else
           {
             if (view != 2)
@@ -617,6 +675,22 @@ public class PlayerControls : MonoBehaviour
             {
               task = new Task(lerpPos(playercam.transform.localPosition,
               new Vector3(playercamOrigPos.x, playercamOrigPos.y, playercamOrigPos.z + 300), 0.5f));
+            }
+          }
+          else if (transform.name == "SPlayer")
+          {
+            if (view != 1 && view != 2)
+            {
+              task = new Task(lerpPos(playercam.transform.localPosition,
+              new Vector3(playercamOrigPos.x, playercamOrigPos.y, playercamOrigPos.z + 80), 0.5f));
+            }
+          }
+          else if (transform.name == "NPlayer")
+          {
+            if (view != 2)
+            {
+              task = new Task(lerpPos(playercam.transform.localPosition,
+              new Vector3(playercamOrigPos.x, playercamOrigPos.y, playercamOrigPos.z + 80), 0.5f));
             }
           }
           else
@@ -838,6 +912,48 @@ public class PlayerControls : MonoBehaviour
             fireOrder = 1;
             nextShot = false;
             fireDelay = 0.18f;
+          }
+        }
+
+        if (transform.name == "SPlayer")
+        {
+          if (fireOrder == 1 && nextShot)
+          {
+            GameObject laser1 = Instantiate(laser, cannon.transform.position, cannon.transform.rotation) as GameObject;
+            laser1.tag = "PlayersLaser";
+            laser1.GetComponent<Rigidbody>().AddForce(transform.forward * (playerSpeed * 10f), ForceMode.Impulse);
+            GameObject laser2 = Instantiate(laser, cannon2.transform.position, cannon2.transform.rotation) as GameObject;
+            laser2.tag = "PlayersLaser";
+            laser2.GetComponent<Rigidbody>().AddForce(transform.forward * (playerSpeed * 10f), ForceMode.Impulse);
+            shoot.Play();
+            fireOrder = 1;
+            nextShot = false;
+            fireDelay = 0.30f;
+          }
+        }
+
+        if (transform.name == "NPlayer")
+        {
+          if (fireOrder == 1 && nextShot)
+          {
+            GameObject laser1 = Instantiate(laser, cannon2.transform.position, cannon2.transform.rotation) as GameObject;
+            laser1.tag = "PlayersLaser";
+            laser1.GetComponent<Rigidbody>().AddForce(transform.forward * (playerSpeed * 10f), ForceMode.Impulse);
+            shoot.Play();
+            fireOrder += 1;
+            nextShot = false;
+            fireDelay = 0.25f;
+          }
+
+          if (fireOrder == 2 && nextShot)
+          {
+            GameObject laser2 = Instantiate(laser, cannon.transform.position, cannon.transform.rotation) as GameObject;
+            laser2.tag = "PlayersLaser";
+            laser2.GetComponent<Rigidbody>().AddForce(transform.forward * (playerSpeed * 10f), ForceMode.Impulse);
+            shoot.Play();
+            fireOrder = 1;
+            nextShot = false;
+            fireDelay = 0.25f;
           }
         }
 
@@ -1290,6 +1406,83 @@ public class PlayerControls : MonoBehaviour
       }
     }
 
+    if (transform.name == "SPlayer")
+    {
+      if (view == 0)
+      {
+        //Cockpit
+        playercam.transform.localPosition = new Vector3(0, 63f, -5f);
+        playercam.transform.localRotation = Quaternion.Euler(0, 0, 0);
+        playercamOrigPos = playercam.transform.localPosition;
+        playercam.GetComponent<Camera>().nearClipPlane = 0.3f;
+
+        view = 1;
+      }
+      else if (view == 1)
+      {
+        //Tow
+        playercam.transform.localPosition = new Vector3(0f, 70f, -93f);
+        playercam.transform.localRotation = Quaternion.Euler(0, 180, 0);
+        playercamOrigPos = playercam.transform.localPosition;
+        playercam.GetComponent<Camera>().nearClipPlane = 0.3f;
+        view = 2;
+      }
+      else if (view == 2)
+      {
+        //Close
+        playercam.transform.localPosition = new Vector3(0, 180f, -730f);
+        playercam.transform.localRotation = Quaternion.Euler(0, 0, 0);
+        playercamOrigPos = playercam.transform.localPosition;
+        playercam.GetComponent<Camera>().nearClipPlane = 0.3f;
+        view = 3;
+      }
+      else if (view == 3)
+      {
+        //Normal
+        playercam.transform.localPosition = new Vector3(0, 260, -950);
+        playercam.transform.localRotation = Quaternion.Euler(0, 0, 0);
+        playercamOrigPos = playercam.transform.localPosition;
+        playercam.GetComponent<Camera>().nearClipPlane = 0.3f;
+        view = 0;
+      }
+    }
+
+    if (transform.name == "NPlayer")
+    {
+      if (view == 0)
+      {
+        //Far
+        playercam.transform.localPosition = new Vector3(0f, 310f, -1415f);
+        playercamOrigPos = playercam.transform.localPosition;
+        playercam.GetComponent<Camera>().nearClipPlane = 0.3f;
+        view = 1;
+      }
+      else if (view == 1)
+      {
+        //Cockpit
+        playercam.transform.localPosition = new Vector3(0f, 60f, -75);
+        playercamOrigPos = playercam.transform.localPosition;
+        playercam.GetComponent<Camera>().nearClipPlane = 0.1f;
+        view = 2;
+      }
+      else if (view == 2)
+      {
+        //Close
+        playercam.transform.localPosition = new Vector3(0f, 225f, -670f);
+        playercamOrigPos = playercam.transform.localPosition;
+        playercam.GetComponent<Camera>().nearClipPlane = 0.3f;
+        view = 3;
+      }
+      else if (view == 3)
+      {
+        //Normal
+        playercam.transform.localPosition = new Vector3(0f, 250f, -1000f);
+        playercamOrigPos = playercam.transform.localPosition;
+        playercam.GetComponent<Camera>().nearClipPlane = 0.3f;
+        view = 0;
+      }
+    }
+
   }
 
 
@@ -1317,10 +1510,29 @@ public class PlayerControls : MonoBehaviour
 
     if (col.name == "greenlaser(Clone)")
     {
-      if (transform.name != "TPlayer")
+      if (transform.name != "TPlayer" && transform.name != "NPlayer")
       {
         damaged = true;
         playerHealth -= 10;
+        UpdateHealthBar();
+        Destroy(col.gameObject);
+        if (playerHealth <= 0)
+        {
+          if (!isRunning)
+          {
+            isRunning = true;
+            StartCoroutine(deathSpin());
+          }
+        }
+      }
+    }
+
+    if (col.name == "atatlaser(Clone)")
+    {
+      if (transform.name != "TPlayer")
+      {
+        damaged = true;
+        playerHealth -= 75;
         UpdateHealthBar();
         Destroy(col.gameObject);
         if (playerHealth <= 0)
@@ -1388,6 +1600,16 @@ public class PlayerControls : MonoBehaviour
     {
       playercam.transform.localPosition = new Vector3(17, -11, 59);
       playercam.transform.localRotation = new Quaternion(0, -161, 0, 0);
+    }
+    else if (transform.name == "SPlayer")
+    {
+      playercam.transform.localPosition = new Vector3(350, -30, 1050);
+      playercam.transform.localRotation = new Quaternion(0, -203, 0, 0);
+    }
+    else if (transform.name == "NPlayer")
+    {
+      playercam.transform.localPosition = new Vector3(390, -30, 1200);
+      playercam.transform.localRotation = new Quaternion(0, -169, 0, 0);
     }
     StartCoroutine(MoveOverTime(playercam.transform, playercamOrigPos, 3f));
     StartCoroutine(RotateOverTime(playercam.transform, playercamOrigRot, 3f));
@@ -1486,6 +1708,14 @@ public class PlayerControls : MonoBehaviour
       engineGlow1.GetComponent<Light>().enabled = true;
       engineGlow2.GetComponent<Light>().enabled = true;
     }
+    if (transform.name == "SPlayer")
+    {
+      playerHealth = playerHealthOrig;
+    }
+    if (transform.name == "NPlayer")
+    {
+      playerHealth = playerHealthOrig;
+    }
     if (transform.name == "YPlayer")
     {
       playerHealth = playerHealthOrig;
@@ -1574,6 +1804,14 @@ public class PlayerControls : MonoBehaviour
     {
       sounds[Random.Range(2, sounds.Length)].Play();
       engineGlow1.GetComponent<TrailRenderer>().enabled = false;
+    }
+    if (transform.name == "SPlayer")
+    {
+      sounds[Random.Range(2, sounds.Length)].Play();
+    }
+    if (transform.name == "NPlayer")
+    {
+      sounds[Random.Range(2, sounds.Length)].Play();
     }
     yield return new WaitForSeconds(3f);
     lifeCount--;
@@ -1713,7 +1951,7 @@ public class PlayerControls : MonoBehaviour
       }
     }
 
-    if (col.collider.tag == "terrain" || col.collider.tag == "structure")
+    if (col.collider.tag == "terrain" || col.collider.tag == "structure" || col.collider.tag == "ATAT")
     {
       damaged = true;
       playerHealth -= playerHealth;

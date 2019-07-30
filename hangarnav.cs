@@ -16,10 +16,15 @@ public class hangarnav : MonoBehaviour
   public GameObject tie;
   public GameObject tiecamera;
 
+  public GameObject snow;
+  public GameObject snowcamera;
+
   public bool onXwing;
   public bool onYwing;
   public bool onAwing;
   public bool onFalcon;
+
+  public bool onSnow;
   public bool onTie;
   public bool tieAV;
 
@@ -36,6 +41,7 @@ public class hangarnav : MonoBehaviour
   public AudioSource cantChoose;
   public AudioSource fDesc;
   public AudioSource tDesc;
+  public AudioSource sDesc;
 
   public Text TitleText;
   public Text shiptext;
@@ -63,11 +69,16 @@ public class hangarnav : MonoBehaviour
   private float ttempValy;
   private float ttempValz;
 
+  private float stempValx;
+  private float stempValy;
+  private float stempValz;
+
   private Vector3 xtempPos;
   private Vector3 ytempPos;
   private Vector3 atempPos;
   private Vector3 ftempPos;
   private Vector3 ttempPos;
+  private Vector3 stempPos;
   GameObject gm;
   public GameObject loadingCanvas;
   public Task t;
@@ -76,8 +87,7 @@ public class hangarnav : MonoBehaviour
   public Task ywMove;
   public Task falcMove;
   public Task tieMove;
-
-
+  public Task snowMove;
 
   // Use this for initialization
   void Start()
@@ -93,6 +103,7 @@ public class hangarnav : MonoBehaviour
     onAwing = false;
     onTie = false;
     onFalcon = false;
+    onSnow = false;
     canControl = true;
     cheat1 = false;
     cheat2 = false;
@@ -102,12 +113,14 @@ public class hangarnav : MonoBehaviour
     awing = GameObject.Find("A-WING");
     falcon = GameObject.Find("FALCON");
     tie = GameObject.Find("TIE");
+    snow = GameObject.Find("SNOW");
 
     ywingcamera = GameObject.Find("ywingCamera");
     xwingcamera = GameObject.Find("xwingCamera");
     awingcamera = GameObject.Find("awingCamera");
     falconcamera = GameObject.Find("falconCamera");
     tiecamera = GameObject.Find("tieCamera");
+    snowcamera = GameObject.Find("snowCamera");
 
     xtempValx = xwing.transform.position.x;
     xtempValy = xwing.transform.position.y;
@@ -125,6 +138,10 @@ public class hangarnav : MonoBehaviour
     ftempValy = falcon.transform.position.y;
     ftempValz = falcon.transform.position.z;
 
+    stempValx = snow.transform.position.x;
+    stempValy = snow.transform.position.y;
+    stempValz = snow.transform.position.z;
+
     sounds = GetComponents<AudioSource>();
     choose = sounds[0];
     xDesc = sounds[1];
@@ -134,6 +151,7 @@ public class hangarnav : MonoBehaviour
     cantChoose = sounds[6];
     fDesc = sounds[7];
     tDesc = sounds[8];
+    sDesc = sounds[9];
 
   }
 
@@ -162,6 +180,11 @@ public class hangarnav : MonoBehaviour
       ftempPos.y = ftempValy + 7 * Mathf.Sin(1 * Time.time);
       ftempPos.z = ftempValz;
       falcon.transform.position = ftempPos;
+
+      stempPos.x = stempValx;
+      stempPos.y = stempValy + 7 * Mathf.Sin(1 * Time.time);
+      stempPos.z = stempValz;
+      snow.transform.position = stempPos;
 
       if (tieAV)
       {
@@ -430,6 +453,48 @@ public class hangarnav : MonoBehaviour
 
     }
 
+    //If Snowspeeder is currently selected
+    /////////////////////////////////////////////////////////////////////////////////////////////////
+    if (onSnow)
+    {
+      if (t != null && t.Running)
+      {
+        var targetRotation = Quaternion.LookRotation(snow.transform.position - transform.position);
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 2 * Time.deltaTime);
+      }
+      if (canControl)
+      {
+        if (snowMove != null && snowMove.Running || (t != null && t.Running))
+        {
+          TitleText.text = "";
+          shiptext.text = "";
+          subtext.text = "";
+          shipdetails.text = "";
+        }
+        else
+        {
+          TitleText.text = "SELECT   YOUR   CRAFT";
+          shiptext.text = "SPEEDER";
+          subtext.text = "PRESS SPACEBAR FOR CRAFT DESCRIPTION OR ESC TO CANCEL";
+          shipdetails.text = "ARMOR: 200   SPEED: 15      SECONDARY WEAPON: TOW CABLE";
+        }
+
+      }
+
+      if (Input.GetKeyDown(KeyCode.Return))
+      {
+        if (t != null && t.Running)
+        {
+          loadingCanvas.GetComponent<CanvasGroup>().alpha = 1;
+          if (gm.GetComponent<levelcountScript>().levelcount == 5)
+          {
+            Application.LoadLevel("level6snowspeeder");
+          }
+        }
+      }
+
+    }
+
     //If user is allowed input(arrow keys, spacebar, enter, etc.)
     /////////////////////////////////////////////////////////////////////////////////////////////////
     if (canControl)
@@ -553,6 +618,25 @@ public class hangarnav : MonoBehaviour
 
         }
 
+        if (onSnow)
+        {
+          yDesc.Stop();
+          xDesc.Stop();
+          aDesc.Stop();
+          fDesc.Stop();
+          tDesc.Stop();
+
+          if (!sDesc.isPlaying)
+          {
+            sDesc.Play();
+          }
+          else
+          {
+            sDesc.Stop();
+          }
+
+        }
+
       }
 
       if (Input.GetKeyDown(KeyCode.RightArrow))
@@ -578,6 +662,10 @@ public class hangarnav : MonoBehaviour
         {
           xwMove.Stop();
         }
+        if (snowMove != null && snowMove.Running)
+        {
+          snowMove.Stop();
+        }
 
         cheat1 = false;
         cheat2 = false;
@@ -590,6 +678,7 @@ public class hangarnav : MonoBehaviour
           onTie = false;
           onAwing = true;
           onFalcon = false;
+          onSnow = false;
           if (xDesc.isPlaying)
           {
             xDesc.Stop();
@@ -598,6 +687,21 @@ public class hangarnav : MonoBehaviour
         }
         else if (onAwing)
         {
+          snowMove = new Task(MoveOverTime(transform, snowcamera.transform.position - transform.position, 3f));
+          StartCoroutine(RotateOverTime(transform, snowcamera.transform.rotation, 3f));
+          onAwing = false;
+          onXwing = false;
+          onTie = false;
+          onYwing = false;
+          onFalcon = false;
+          onSnow = true;
+          if (aDesc.isPlaying)
+          {
+            aDesc.Stop();
+          }
+        }
+        else if (onSnow)
+        {
           ywMove = new Task(MoveOverTime(transform, ywingcamera.transform.position - transform.position, 3f));
           StartCoroutine(RotateOverTime(transform, ywingcamera.transform.rotation, 3f));
           onAwing = false;
@@ -605,9 +709,10 @@ public class hangarnav : MonoBehaviour
           onTie = false;
           onYwing = true;
           onFalcon = false;
-          if (aDesc.isPlaying)
+          onSnow = false;
+          if (sDesc.isPlaying)
           {
-            aDesc.Stop();
+            sDesc.Stop();
           }
         }
         else if (onYwing)
@@ -690,6 +795,10 @@ public class hangarnav : MonoBehaviour
         {
           xwMove.Stop();
         }
+        if (snowMove != null && snowMove.Running)
+        {
+          snowMove.Stop();
+        }
 
         cheat1 = false;
         cheat2 = false;
@@ -738,16 +847,32 @@ public class hangarnav : MonoBehaviour
         }
         else if (onYwing)
         {
+          snowMove = new Task(MoveOverTime(transform, snowcamera.transform.position - transform.position, 3f));
+          StartCoroutine(RotateOverTime(transform, snowcamera.transform.rotation, 3f));
+          onFalcon = false;
+          onXwing = false;
+          onYwing = false;
+          onTie = false;
+          onAwing = false;
+          onSnow = true;
+          if (yDesc.isPlaying)
+          {
+            yDesc.Stop();
+          }
+        }
+        else if (onSnow)
+        {
           awMove = new Task(MoveOverTime(transform, awingcamera.transform.position - transform.position, 3f));
           StartCoroutine(RotateOverTime(transform, awingcamera.transform.rotation, 3f));
           onFalcon = false;
           onXwing = false;
           onYwing = false;
           onTie = false;
+          onSnow = false;
           onAwing = true;
-          if (yDesc.isPlaying)
+          if (sDesc.isPlaying)
           {
-            yDesc.Stop();
+            sDesc.Stop();
           }
         }
         else if (onAwing)
@@ -801,6 +926,7 @@ public class hangarnav : MonoBehaviour
             onAwing = false;
             onYwing = false;
             onFalcon = false;
+            onSnow = false;
             StartCoroutine(tcheatshipanim());
             cheatUsed = true;
           }
@@ -816,7 +942,7 @@ public class hangarnav : MonoBehaviour
         if (onXwing)
         {
           //If Bespin level is chosen, play Unavailable sound when selecting ship
-          if (gm.GetComponent<levelcountScript>().levelcount == 3)
+          if (gm.GetComponent<levelcountScript>().levelcount == 3 || gm.GetComponent<levelcountScript>().levelcount == 5)
           {
             cantChoose.Play();
           }
@@ -837,21 +963,48 @@ public class hangarnav : MonoBehaviour
         }
         else if (onAwing)
         {
-          choose.Play();
-          ready.Play();
-          Cursor.visible = false;
-          Cursor.lockState = CursorLockMode.Locked;
-          aDesc.Stop();
-          TitleText.text = "";
-          shiptext.text = "";
-          subtext.text = "";
-          shipdetails.text = "";
-          t = new Task(ashipanim());
+          if (gm.GetComponent<levelcountScript>().levelcount == 5)
+          {
+            cantChoose.Play();
+          }
+          else
+          {
+            choose.Play();
+            ready.Play();
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+            aDesc.Stop();
+            TitleText.text = "";
+            shiptext.text = "";
+            subtext.text = "";
+            shipdetails.text = "";
+            t = new Task(ashipanim());
+          }
+
+        }
+        else if (onSnow)
+        {
+          if (gm.GetComponent<levelcountScript>().levelcount != 5)
+          {
+            cantChoose.Play();
+          }
+          else
+          {
+            choose.Play();
+            ready.Play();
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+            TitleText.text = "";
+            shiptext.text = "";
+            shipdetails.text = "";
+            t = new Task(snowshipanim());
+          }
+
         }
         else if (onYwing)
         {
           //If Bespin level is chosen, play Unavailable sound when selecting ship
-          if (gm.GetComponent<levelcountScript>().levelcount == 3)
+          if (gm.GetComponent<levelcountScript>().levelcount == 3 || gm.GetComponent<levelcountScript>().levelcount == 5)
           {
             cantChoose.Play();
           }
@@ -872,7 +1025,7 @@ public class hangarnav : MonoBehaviour
         else if (onFalcon)
         {
           //If Bespin level is chosen, play Unavailable sound when selecting ship
-          if (gm.GetComponent<levelcountScript>().levelcount == 3)
+          if (gm.GetComponent<levelcountScript>().levelcount == 3 || gm.GetComponent<levelcountScript>().levelcount == 5)
           {
             cantChoose.Play();
           }
@@ -893,7 +1046,7 @@ public class hangarnav : MonoBehaviour
         else if (onTie)
         {
           //If Bespin or Endor levels are chosen, play Unavailable sound when selecting ship
-          if (gm.GetComponent<levelcountScript>().levelcount == 3 || gm.GetComponent<levelcountScript>().levelcount == 4)
+          if (gm.GetComponent<levelcountScript>().levelcount == 3 || gm.GetComponent<levelcountScript>().levelcount == 4 || gm.GetComponent<levelcountScript>().levelcount == 5)
           {
             cantChoose.Play();
           }
@@ -1193,6 +1346,46 @@ public class hangarnav : MonoBehaviour
     }
   }
 
+  //Animation for SnowSpeeder
+  public IEnumerator snowshipanim()
+  {
+    canControl = false;
+
+    int num = 5;
+    if (num == 5)
+    {
+      StartCoroutine(MoveOverTime(snow.transform, (snow.transform.up * 80), 4));
+      yield return new WaitForSeconds(4);
+      num = 4;
+    }
+    if (num == 4)
+    {
+      StartCoroutine(MoveOverTime(snow.transform, (snow.transform.forward * 800), 4));
+      yield return new WaitForSeconds(4);
+      num = 3;
+    }
+    if (num == 3)
+    {
+      StartCoroutine(RotateOverTime(snow.transform, Quaternion.Euler(0, -90, 0), 3));
+      yield return new WaitForSeconds(3);
+      num = 2;
+    }
+    if (num == 2)
+    {
+      StartCoroutine(MoveOverTime(snow.transform, (snow.transform.forward * 3800), 5f));
+      yield return new WaitForSeconds(4.5f);
+      num = 1;
+    }
+    if (num == 1)
+    {
+      loadingCanvas.GetComponent<CanvasGroup>().alpha = 1;
+      if (gm.GetComponent<levelcountScript>().levelcount == 5)
+      {
+        Application.LoadLevel("level6snowspeeder");
+      }
+    }
+  }
+
 
 
 
@@ -1204,7 +1397,7 @@ public class hangarnav : MonoBehaviour
     if (num == 4)
     {
       yield return new WaitForSeconds(3);
-      StartCoroutine(MoveOverTime(tie.transform, (tie.transform.forward * 1250), 4));
+      StartCoroutine(MoveOverTime(tie.transform, (tie.transform.forward * 1800), 4));
       yield return new WaitForSeconds(4);
       StartCoroutine(MoveOverTime(tie.transform, (tie.transform.up * 40), 1));
       num = 3;
