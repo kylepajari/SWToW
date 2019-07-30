@@ -22,7 +22,7 @@ Early build contains five levels with five flyable player ships(and one hidden s
 
 /////////////////////////////////////////////////////////////////////
 
-Controls layed out below:
+In-Game Controls below:
 
 
 Arrow Keys/Mouse - Pitch/Bank
