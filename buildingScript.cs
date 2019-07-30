@@ -51,6 +51,11 @@ public class buildingScript : MonoBehaviour
       //Check if enemy health is 0 or less
       if (buildingHealth <= 0)
       {
+        if (transform.name == "ShieldGenerator")
+        {
+          hothScript hScript = GameObject.Find("LevelManager").GetComponent<hothScript>();
+          hScript.shieldDown = true;
+        }
         Instantiate(explosion, transform.position, transform.rotation);
         Destroy(gameObject);
       }

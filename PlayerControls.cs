@@ -1807,7 +1807,7 @@ public class PlayerControls : MonoBehaviour
     }
     if (transform.name == "SPlayer")
     {
-      sounds[Random.Range(2, sounds.Length)].Play();
+      sounds[Random.Range(3, sounds.Length)].Play();
     }
     if (transform.name == "NPlayer")
     {

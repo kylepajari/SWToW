@@ -1,6 +1,6 @@
-﻿using UnityEngine;
-using System.Collections;
-using System.Linq;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
 
 
@@ -87,7 +87,19 @@ public class ATATscript : MonoBehaviour
     backRight_Ankle = gameObject.FindInChildren("br_ankle").transform;
 
     target = null;
-    WalkTarget = GameObject.Find("AI-Destination").transform;
+    if (transform.name == "AT-AT")
+    {
+      WalkTarget = GameObject.Find("AI-Destination1").transform;
+    }
+    else if (transform.name == "AT-AT (1)")
+    {
+      WalkTarget = GameObject.Find("AI-Destination2").transform;
+    }
+    else if (transform.name == "AT-AT (2)")
+    {
+      WalkTarget = GameObject.Find("AI-Destination3").transform;
+    }
+
     ShieldGenerator = GameObject.Find("ShieldGenerator").transform;
     sounds = GetComponents<AudioSource>();
     shoot = sounds[0];
@@ -389,6 +401,8 @@ public class ATATscript : MonoBehaviour
       //Check if enemy health is 0 or less
       if (enemyHealth <= 0)
       {
+        hothScript hScript = GameObject.Find("LevelManager").GetComponent<hothScript>();
+        hScript.atatsDestroyed += 1;
         Instantiate(explosion, transform.position, transform.rotation);
         Destroy(gameObject);
       }
@@ -404,13 +418,16 @@ public class ATATscript : MonoBehaviour
       if (enemyHealth <= 0)
       {
         Instantiate(explosion, transform.position, transform.rotation);
+        hothScript hScript = GameObject.Find("LevelManager").GetComponent<hothScript>();
+        hScript.atatsDestroyed += 1;
+        Instantiate(explosion, transform.position, transform.rotation);
         Destroy(gameObject);
       }
 
     }
 
     //unit reached destination point
-    if (col.name == "AI-Destination")
+    if (col.tag == "AiCheckpoint")
     {
       //stop walking
       canWalk = false;

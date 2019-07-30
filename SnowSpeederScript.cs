@@ -17,7 +17,7 @@ public class SnowSpeederScript : MonoBehaviour
   {
     m_MainCamera = Camera.main;
     sounds = GetComponents<AudioSource>();
-    TowCableOutOfRange = sounds[4];
+    TowCableOutOfRange = sounds[2];
     // TowCable = sounds[5];
 
     TowCable = GameObject.Find("TowCableGun");
