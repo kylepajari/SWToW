@@ -2,15 +2,17 @@
 Star Wars arcade flight action game.  
 Inspired by Star Wars: Rogue Squadron.
 Craft/Weapon/Background Sounds taken from Star Wars: Rogue Squadron, Music from YouTube.
-Various Models from scifi3d.com
+Various Models from scifi3d.com / Daniel on SketchFab.
 
 /////////////////////////////////////////////////////////////////////
 
-Early build contains four levels with four flyable player ships(and one hidden ship):
+Early build contains five levels with five flyable player ships(and one hidden ship):
 
 -X-Wing
 
 -A-Wing
+
+-Speeder
 
 -Y-Wing
 
@@ -37,9 +39,11 @@ L/Middle Mouse Wheel Button - Lock on nearest enemy
 
 F - Special Action
 
-V - Change view
+V - Change View
 
 C - Look Behind
+
+Esc- Pause Menu
 
 
 
