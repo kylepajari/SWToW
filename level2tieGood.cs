@@ -2,11 +2,12 @@
 using System.Collections;
 using UnityEngine.UI;
 
-public class level3OutroScript : MonoBehaviour
+public class level2tieGood : MonoBehaviour
 {
 
-  public GameObject corvette;
-  public GameObject player;
+  public GameObject shuttle;
+  public GameObject follower1;
+  public GameObject follower2;
   public Transform maincam;
   public GameObject wincan;
   public bool isRunning;
@@ -14,8 +15,9 @@ public class level3OutroScript : MonoBehaviour
   // Use this for initialization
   void Start()
   {
-    corvette = GameObject.Find("corvette");
-    player = GameObject.Find("UserForCutscenes");
+    shuttle = GameObject.Find("ImpShuttle");
+    follower1 = GameObject.Find("TieParent");
+    follower2 = GameObject.Find("TieParent (1)");
     maincam = GameObject.Find("Main Camera").transform;
     wincan = GameObject.Find("Canvas");
     wincan.GetComponent<CanvasGroup>().alpha = 0;
@@ -73,34 +75,26 @@ public class level3OutroScript : MonoBehaviour
     int num = 5;
     if (num == 5)
     {
-      StartCoroutine(MoveOverTime(player.transform, (player.transform.forward * 800), 80));
-      StartCoroutine(MoveOverTime(maincam.transform, (maincam.transform.up * 20), 10));
-      StartCoroutine(MoveOverTime(corvette.transform, (corvette.transform.forward * 800), 70));
-      yield return new WaitForSeconds(13f);
+      StartCoroutine(MoveOverTime(shuttle.transform, (shuttle.transform.forward * 240), 30));
+      StartCoroutine(MoveOverTime(follower1.transform, (follower1.transform.forward * 240), 30));
+      StartCoroutine(MoveOverTime(follower2.transform, (follower2.transform.forward * 240), 30));
+      yield return new WaitForSeconds(6f);
       num = 4;
     }
     if (num == 4)
     {
-      maincam.position = new Vector3(1174, 62, -1018);
-      maincam.LookAt(corvette.transform);
-      StartCoroutine(MoveOverTime(maincam.transform, (-maincam.transform.up * 20), 60));
+      maincam.position = new Vector3(135, 107, 66);
+      maincam.rotation = Quaternion.Euler(0, 0, 0);
+      yield return new WaitForSeconds(4.2f);
+      wincan.GetComponent<CanvasGroup>().alpha = 1;
       yield return new WaitForSeconds(4f);
-      player.transform.LookAt(maincam.transform);
-      StartCoroutine(MoveOverTime(player.transform, (player.transform.forward * 900), 40));
-      yield return new WaitForSeconds(7f);
-      maincam.LookAt(player.transform);
-      num = 3;
-    }
-    if (num == 3)
-    {
-      yield return new WaitForSeconds(1f);
-
       num = 1;
     }
     if (num == 1)
     {
+      maincam.LookAt(shuttle.transform);
       wincan.GetComponent<CanvasGroup>().alpha = 1;
-      yield return new WaitForSeconds(5f);
+      yield return new WaitForSeconds(8f);
       Cursor.visible = true;
       Cursor.lockState = CursorLockMode.None;
       Application.LoadLevel("levelselect");

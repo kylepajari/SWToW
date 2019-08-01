@@ -22,20 +22,9 @@ public class LaserHitScript : MonoBehaviour
 
   void OnTriggerEnter(Collider col)
   {
-    if (col.tag == "Empire")
+    if (col.tag == "Empire" || col.tag == "Rebel")
     {
-      if (transform.name.Contains("red"))
-      {
-        Instantiate(sparkEffect, transform.position, transform.rotation);
-      }
-      if (transform.name.Contains("ion"))
-      {
-        Instantiate(electricEffect, transform.position, transform.rotation);
-      }
-    }
-    else if (col.tag == "Rebel")
-    {
-      if (transform.name.Contains("green"))
+      if (transform.name.Contains("laser"))
       {
         Instantiate(sparkEffect, transform.position, transform.rotation);
       }
@@ -48,7 +37,7 @@ public class LaserHitScript : MonoBehaviour
     {
       if (!col.name.Contains("laser"))
       {
-        if (transform.name.Contains("green") || transform.name.Contains("red"))
+        if (transform.name.Contains("laser"))
         {
           Instantiate(sparkEffect, transform.position, transform.rotation);
         }

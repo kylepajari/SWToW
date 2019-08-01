@@ -1,20 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class level3introscript : MonoBehaviour
+public class level5introscript : MonoBehaviour
 {
 
-  public GameObject player;
+  public GameObject gozanti;
 
   public bool isRunning;
 
-  public Transform camPos1;
-
   public GameObject DialogCanvas;
-
-  public bool canLook;
 
   public GameObject Loading;
 
@@ -22,16 +17,13 @@ public class level3introscript : MonoBehaviour
   void Start()
   {
     Time.timeScale = 1;
-    player = GameObject.Find("UserForCutscenes");
+    gozanti = GameObject.Find("Gozanti");
+    Transform ship = gozanti.transform;
     GameObject gm = GameObject.Find("GameManager");
-    camPos1 = GameObject.Find("camPos1").transform;
+    Loading = GameObject.Find("LoadingUI");
     DialogCanvas = GameObject.Find("DialogCanvas");
     DialogCanvas.GetComponent<CanvasGroup>().alpha = 0;
-    canLook = false;
-    Loading = GameObject.Find("LoadingUI");
-    Loading.GetComponent<CanvasGroup>().alpha = 0;
     Globals.Fade = GameObject.Find("FadeToBlack");
-
 
   }
 
@@ -45,15 +37,10 @@ public class level3introscript : MonoBehaviour
       StartCoroutine(introsequence());
     }
 
-    if (canLook)
-    {
-      transform.LookAt(player.transform);
-    }
-
     if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Space))
     {
       Loading.GetComponent<CanvasGroup>().alpha = 1;
-      Application.LoadLevel("level3");
+      Application.LoadLevel("level5");
     }
 
 
@@ -113,56 +100,33 @@ public class level3introscript : MonoBehaviour
     }
   }
 
-
-
   public IEnumerator introsequence()
   {
     isRunning = true;
-    int num = 4;
-    if (num == 4)
-    {
-      StartCoroutine(RotateOverTime(Camera.main.transform, Quaternion.Euler(0, 180, 0), 5f));
-      StartCoroutine(MoveOverTime(player.transform, (player.transform.forward * 3000), 180));
-      yield return new WaitForSeconds(3f);
-      StartCoroutine(FadeTo(1f, 2.0f));
-      yield return new WaitForSeconds(3f);
-      StartCoroutine(FadeAway(0f, 1.0f));
-      num = 3;
-    }
+    int num = 3;
     if (num == 3)
     {
-      canLook = true;
+      StartCoroutine(MoveOverTime(gozanti.transform, (gozanti.transform.forward * 350), 8));
+      yield return new WaitForSeconds(2f);
+      StartCoroutine(FadeTo(1f, 2.0f));
       yield return new WaitForSeconds(5f);
+      StartCoroutine(FadeAway(0f, 2.0f));
+      StartCoroutine(RotateOverTime(gozanti.transform, Quaternion.Euler(-5, -527, 0), 2f));
       num = 2;
     }
     if (num == 2)
     {
-      transform.position = camPos1.position;
-      transform.rotation = camPos1.rotation;
-      canLook = false;
-      var message = DialogCanvas.FindInChildren("Text").GetComponent<Text>();
-      message.text = "Fuel Platform";
-      StartCoroutine(FadeTo(1f, 2.0f));
-      yield return new WaitForSeconds(3f);
-      StartCoroutine(FadeAway(0f, 1.0f));
-      yield return new WaitForSeconds(1f);
-      StartCoroutine(RotateOverTime(transform, Quaternion.Euler(-12, 370, 0), 1f));
-      yield return new WaitForSeconds(1f);
-      for (float f = Camera.main.fieldOfView; f > 15; f -= Time.deltaTime * 32f)
-      {
-        float fov = f;
-        Camera.main.fieldOfView = fov;
-        yield return null;
-      }
-      yield return new WaitForSeconds(3f);
+
+      StartCoroutine(MoveOverTime(gozanti.transform, (-gozanti.transform.up * 72), 5));
+      yield return new WaitForSeconds(6f);
       StartCoroutine(Globals.FadeToBlack(1f, 1.0f));
-      yield return new WaitForSeconds(1f);
       num = 1;
     }
     if (num == 1)
     {
+      yield return new WaitForSeconds(1.5f);
       Loading.GetComponent<CanvasGroup>().alpha = 1;
-      Application.LoadLevel("level3");
+      Application.LoadLevel("level5");
     }
   }
 }

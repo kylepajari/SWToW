@@ -10,7 +10,7 @@ public class buildingScript : MonoBehaviour
   void OnTriggerEnter(Collider col)
   {
     //Check to see if ship collided with redlaser
-    if (col.name == "redlaser(Clone)")
+    if (col.name == "redlaser(Clone)" || col.tag == "PlayersLaser")
     {
       //Destroy red laser
       Destroy(col.gameObject);

@@ -324,7 +324,7 @@ public class ATSTscript : MonoBehaviour
   void OnCollisionEnter(Collision col)
   {
     //Check to see if ship collided with Player
-    if (col.collider.name == "APlayer" || col.collider.name == "XPlayer" || col.collider.name == "YPlayer" || col.collider.name == "FPlayer" || col.collider.name == "TPlayer")
+    if (col.collider.name == "APlayer" || col.collider.name == "XPlayer" || col.collider.name == "YPlayer" || col.collider.name == "FPlayer" || col.collider.name == "TPlayer" || col.collider.name == "SPlayer" || col.collider.name == "NPlayer")
     {
       Instantiate(explosion, transform.position, transform.rotation);
       Destroy(gameObject);
@@ -335,7 +335,7 @@ public class ATSTscript : MonoBehaviour
   void OnTriggerEnter(Collider col)
   {
     //Check to see if ship collided with redlaser
-    if (col.name == "redlaser(Clone)")
+    if (col.name == "redlaser(Clone)" || col.tag == "PlayersLaser")
     {
       //Destroy red laser
       Destroy(col.gameObject);

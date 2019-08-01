@@ -79,7 +79,6 @@ public class hangarnav : MonoBehaviour
   private Vector3 ftempPos;
   private Vector3 ttempPos;
   private Vector3 stempPos;
-  GameObject gm;
   public GameObject loadingCanvas;
   public Task t;
   public Task xwMove;
@@ -92,8 +91,6 @@ public class hangarnav : MonoBehaviour
   // Use this for initialization
   void Start()
   {
-
-    gm = GameObject.Find("levelCounterObject");
 
     loadingCanvas = GameObject.Find("LoadingUI");
     loadingCanvas.GetComponent<CanvasGroup>().alpha = 0;
@@ -158,7 +155,6 @@ public class hangarnav : MonoBehaviour
   // Update is called once per frame
   void Update()
   {
-
     if (t == null)
     {
       xtempPos.x = xtempValx;
@@ -231,18 +227,8 @@ public class hangarnav : MonoBehaviour
         if (t != null && t.Running)
         {
           loadingCanvas.GetComponent<CanvasGroup>().alpha = 1;
-          if (gm.GetComponent<levelcountScript>().levelcount == 1)
-          {
-            Application.LoadLevel("level2xwing");
-          }
-          if (gm.GetComponent<levelcountScript>().levelcount == 2)
-          {
-            Application.LoadLevel("level3xwing");
-          }
-          if (gm.GetComponent<levelcountScript>().levelcount == 4)
-          {
-            Application.LoadLevel("level5xwing");
-          }
+          Globals.ShipName = "XPlayer";
+          LoadLevel();
         }
       }
 
@@ -283,18 +269,8 @@ public class hangarnav : MonoBehaviour
         if (t != null && t.Running)
         {
           loadingCanvas.GetComponent<CanvasGroup>().alpha = 1;
-          if (gm.GetComponent<levelcountScript>().levelcount == 1)
-          {
-            Application.LoadLevel("level2ywing");
-          }
-          if (gm.GetComponent<levelcountScript>().levelcount == 2)
-          {
-            Application.LoadLevel("level3ywing");
-          }
-          if (gm.GetComponent<levelcountScript>().levelcount == 4)
-          {
-            Application.LoadLevel("level5ywing");
-          }
+          Globals.ShipName = "YPlayer";
+          LoadLevel();
         }
       }
 
@@ -334,22 +310,8 @@ public class hangarnav : MonoBehaviour
         if (t != null && t.Running)
         {
           loadingCanvas.GetComponent<CanvasGroup>().alpha = 1;
-          if (gm.GetComponent<levelcountScript>().levelcount == 1)
-          {
-            Application.LoadLevel("level2awing");
-          }
-          if (gm.GetComponent<levelcountScript>().levelcount == 2)
-          {
-            Application.LoadLevel("level3awing");
-          }
-          if (gm.GetComponent<levelcountScript>().levelcount == 3)
-          {
-            Application.LoadLevel("level4awing");
-          }
-          if (gm.GetComponent<levelcountScript>().levelcount == 4)
-          {
-            Application.LoadLevel("level5awing");
-          }
+          Globals.ShipName = "APlayer";
+          LoadLevel();
         }
       }
 
@@ -389,18 +351,8 @@ public class hangarnav : MonoBehaviour
         if (t != null && t.Running)
         {
           loadingCanvas.GetComponent<CanvasGroup>().alpha = 1;
-          if (gm.GetComponent<levelcountScript>().levelcount == 1)
-          {
-            Application.LoadLevel("level2falcon");
-          }
-          if (gm.GetComponent<levelcountScript>().levelcount == 2)
-          {
-            Application.LoadLevel("level3falcon");
-          }
-          if (gm.GetComponent<levelcountScript>().levelcount == 4)
-          {
-            Application.LoadLevel("level5falcon");
-          }
+          Globals.ShipName = "FPlayer";
+          LoadLevel();
         }
       }
 
@@ -440,14 +392,8 @@ public class hangarnav : MonoBehaviour
         if (t != null && t.Running)
         {
           loadingCanvas.GetComponent<CanvasGroup>().alpha = 1;
-          if (gm.GetComponent<levelcountScript>().levelcount == 1)
-          {
-            Application.LoadLevel("level2tie");
-          }
-          if (gm.GetComponent<levelcountScript>().levelcount == 2)
-          {
-            Application.LoadLevel("level3tie");
-          }
+          Globals.ShipName = "TPlayer";
+          LoadLevel();
         }
       }
 
@@ -486,10 +432,8 @@ public class hangarnav : MonoBehaviour
         if (t != null && t.Running)
         {
           loadingCanvas.GetComponent<CanvasGroup>().alpha = 1;
-          if (gm.GetComponent<levelcountScript>().levelcount == 5)
-          {
-            Application.LoadLevel("level6snowspeeder");
-          }
+          Globals.ShipName = "SPlayer";
+          LoadLevel();
         }
       }
 
@@ -671,8 +615,8 @@ public class hangarnav : MonoBehaviour
         cheat2 = false;
         if (onXwing)
         {
-          awMove = new Task(MoveOverTime(transform, awingcamera.transform.position - transform.position, 3f));
-          StartCoroutine(RotateOverTime(transform, awingcamera.transform.rotation, 3f));
+          awMove = new Task(Globals.MoveOverTime(transform, awingcamera.transform.position - transform.position, 3f));
+          StartCoroutine(Globals.RotateOverTime(transform, awingcamera.transform.rotation, 3f));
           onXwing = false;
           onYwing = false;
           onTie = false;
@@ -687,8 +631,8 @@ public class hangarnav : MonoBehaviour
         }
         else if (onAwing)
         {
-          snowMove = new Task(MoveOverTime(transform, snowcamera.transform.position - transform.position, 3f));
-          StartCoroutine(RotateOverTime(transform, snowcamera.transform.rotation, 3f));
+          snowMove = new Task(Globals.MoveOverTime(transform, snowcamera.transform.position - transform.position, 3f));
+          StartCoroutine(Globals.RotateOverTime(transform, snowcamera.transform.rotation, 3f));
           onAwing = false;
           onXwing = false;
           onTie = false;
@@ -702,8 +646,8 @@ public class hangarnav : MonoBehaviour
         }
         else if (onSnow)
         {
-          ywMove = new Task(MoveOverTime(transform, ywingcamera.transform.position - transform.position, 3f));
-          StartCoroutine(RotateOverTime(transform, ywingcamera.transform.rotation, 3f));
+          ywMove = new Task(Globals.MoveOverTime(transform, ywingcamera.transform.position - transform.position, 3f));
+          StartCoroutine(Globals.RotateOverTime(transform, ywingcamera.transform.rotation, 3f));
           onAwing = false;
           onXwing = false;
           onTie = false;
@@ -719,8 +663,8 @@ public class hangarnav : MonoBehaviour
         {
           if (tieAV == true)
           {
-            tieMove = new Task(MoveOverTime(transform, tiecamera.transform.position - transform.position, 3f));
-            StartCoroutine(RotateOverTime(transform, tiecamera.transform.rotation, 3f));
+            tieMove = new Task(Globals.MoveOverTime(transform, tiecamera.transform.position - transform.position, 3f));
+            StartCoroutine(Globals.RotateOverTime(transform, tiecamera.transform.rotation, 3f));
             onXwing = false;
             onYwing = false;
             onAwing = false;
@@ -729,8 +673,8 @@ public class hangarnav : MonoBehaviour
           }
           else
           {
-            falcMove = new Task(MoveOverTime(transform, falconcamera.transform.position - transform.position, 3f));
-            StartCoroutine(RotateOverTime(transform, falconcamera.transform.rotation, 3f));
+            falcMove = new Task(Globals.MoveOverTime(transform, falconcamera.transform.position - transform.position, 3f));
+            StartCoroutine(Globals.RotateOverTime(transform, falconcamera.transform.rotation, 3f));
             onYwing = false;
             onAwing = false;
             onXwing = false;
@@ -744,8 +688,8 @@ public class hangarnav : MonoBehaviour
         }
         else if (onTie)
         {
-          falcMove = new Task(MoveOverTime(transform, falconcamera.transform.position - transform.position, 3f));
-          StartCoroutine(RotateOverTime(transform, falconcamera.transform.rotation, 3f));
+          falcMove = new Task(Globals.MoveOverTime(transform, falconcamera.transform.position - transform.position, 3f));
+          StartCoroutine(Globals.RotateOverTime(transform, falconcamera.transform.rotation, 3f));
           onXwing = false;
           onTie = false;
           onYwing = false;
@@ -758,8 +702,8 @@ public class hangarnav : MonoBehaviour
         }
         else if (onFalcon)
         {
-          xwMove = new Task(MoveOverTime(transform, xwingcamera.transform.position - transform.position, 3f));
-          StartCoroutine(RotateOverTime(transform, xwingcamera.transform.rotation, 3f));
+          xwMove = new Task(Globals.MoveOverTime(transform, xwingcamera.transform.position - transform.position, 3f));
+          StartCoroutine(Globals.RotateOverTime(transform, xwingcamera.transform.rotation, 3f));
           onFalcon = false;
           onYwing = false;
           onAwing = false;
@@ -804,8 +748,8 @@ public class hangarnav : MonoBehaviour
         cheat2 = false;
         if (onXwing)
         {
-          falcMove = new Task(MoveOverTime(transform, falconcamera.transform.position - transform.position, 3f));
-          StartCoroutine(RotateOverTime(transform, falconcamera.transform.rotation, 3f));
+          falcMove = new Task(Globals.MoveOverTime(transform, falconcamera.transform.position - transform.position, 3f));
+          StartCoroutine(Globals.RotateOverTime(transform, falconcamera.transform.rotation, 3f));
           onAwing = false;
           onXwing = false;
           onYwing = false;
@@ -821,8 +765,8 @@ public class hangarnav : MonoBehaviour
         {
           if (tieAV == true)
           {
-            tieMove = new Task(MoveOverTime(transform, tiecamera.transform.position - transform.position, 3f));
-            StartCoroutine(RotateOverTime(transform, tiecamera.transform.rotation, 3f));
+            tieMove = new Task(Globals.MoveOverTime(transform, tiecamera.transform.position - transform.position, 3f));
+            StartCoroutine(Globals.RotateOverTime(transform, tiecamera.transform.rotation, 3f));
             onXwing = false;
             onYwing = false;
             onAwing = false;
@@ -831,8 +775,8 @@ public class hangarnav : MonoBehaviour
           }
           else
           {
-            ywMove = new Task(MoveOverTime(transform, ywingcamera.transform.position - transform.position, 3f));
-            StartCoroutine(RotateOverTime(transform, ywingcamera.transform.rotation, 3f));
+            ywMove = new Task(Globals.MoveOverTime(transform, ywingcamera.transform.position - transform.position, 3f));
+            StartCoroutine(Globals.RotateOverTime(transform, ywingcamera.transform.rotation, 3f));
             onFalcon = false;
             onAwing = false;
             onXwing = false;
@@ -847,8 +791,8 @@ public class hangarnav : MonoBehaviour
         }
         else if (onYwing)
         {
-          snowMove = new Task(MoveOverTime(transform, snowcamera.transform.position - transform.position, 3f));
-          StartCoroutine(RotateOverTime(transform, snowcamera.transform.rotation, 3f));
+          snowMove = new Task(Globals.MoveOverTime(transform, snowcamera.transform.position - transform.position, 3f));
+          StartCoroutine(Globals.RotateOverTime(transform, snowcamera.transform.rotation, 3f));
           onFalcon = false;
           onXwing = false;
           onYwing = false;
@@ -862,8 +806,8 @@ public class hangarnav : MonoBehaviour
         }
         else if (onSnow)
         {
-          awMove = new Task(MoveOverTime(transform, awingcamera.transform.position - transform.position, 3f));
-          StartCoroutine(RotateOverTime(transform, awingcamera.transform.rotation, 3f));
+          awMove = new Task(Globals.MoveOverTime(transform, awingcamera.transform.position - transform.position, 3f));
+          StartCoroutine(Globals.RotateOverTime(transform, awingcamera.transform.rotation, 3f));
           onFalcon = false;
           onXwing = false;
           onYwing = false;
@@ -877,8 +821,8 @@ public class hangarnav : MonoBehaviour
         }
         else if (onAwing)
         {
-          xwMove = new Task(MoveOverTime(transform, xwingcamera.transform.position - transform.position, 3f));
-          StartCoroutine(RotateOverTime(transform, xwingcamera.transform.rotation, 3f));
+          xwMove = new Task(Globals.MoveOverTime(transform, xwingcamera.transform.position - transform.position, 3f));
+          StartCoroutine(Globals.RotateOverTime(transform, xwingcamera.transform.rotation, 3f));
           onFalcon = false;
           onAwing = false;
           onYwing = false;
@@ -891,8 +835,8 @@ public class hangarnav : MonoBehaviour
         }
         else if (onTie)
         {
-          ywMove = new Task(MoveOverTime(transform, ywingcamera.transform.position - transform.position, 3f));
-          StartCoroutine(RotateOverTime(transform, ywingcamera.transform.rotation, 3f));
+          ywMove = new Task(Globals.MoveOverTime(transform, ywingcamera.transform.position - transform.position, 3f));
+          StartCoroutine(Globals.RotateOverTime(transform, ywingcamera.transform.rotation, 3f));
           onTie = false;
           onYwing = true;
           onAwing = false;
@@ -916,8 +860,8 @@ public class hangarnav : MonoBehaviour
         {
           if (cheat1 == true && cheat2 == true)
           {
-            tieMove = new Task(MoveOverTime(transform, tiecamera.transform.position - transform.position, 3f));
-            StartCoroutine(RotateOverTime(transform, tiecamera.transform.rotation, 3f));
+            tieMove = new Task(Globals.MoveOverTime(transform, tiecamera.transform.position - transform.position, 3f));
+            StartCoroutine(Globals.RotateOverTime(transform, tiecamera.transform.rotation, 3f));
             TitleText.text = "";
             shiptext.text = "";
             subtext.text = "";
@@ -941,8 +885,8 @@ public class hangarnav : MonoBehaviour
       {
         if (onXwing)
         {
-          //If Bespin level is chosen, play Unavailable sound when selecting ship
-          if (gm.GetComponent<levelcountScript>().levelcount == 3 || gm.GetComponent<levelcountScript>().levelcount == 5)
+          //If Hoth level is chosen, play Unavailable sound when selecting ship
+          if (Globals.levelCount == 5)
           {
             cantChoose.Play();
           }
@@ -963,7 +907,7 @@ public class hangarnav : MonoBehaviour
         }
         else if (onAwing)
         {
-          if (gm.GetComponent<levelcountScript>().levelcount == 5)
+          if (Globals.levelCount == 5)
           {
             cantChoose.Play();
           }
@@ -984,7 +928,8 @@ public class hangarnav : MonoBehaviour
         }
         else if (onSnow)
         {
-          if (gm.GetComponent<levelcountScript>().levelcount != 5)
+          //If any level except Hoth is chosen, play Unavailable sound when selecting ship
+          if (Globals.levelCount != 5)
           {
             cantChoose.Play();
           }
@@ -1003,8 +948,8 @@ public class hangarnav : MonoBehaviour
         }
         else if (onYwing)
         {
-          //If Bespin level is chosen, play Unavailable sound when selecting ship
-          if (gm.GetComponent<levelcountScript>().levelcount == 3 || gm.GetComponent<levelcountScript>().levelcount == 5)
+          //If Hoth level is chosen, play Unavailable sound when selecting ship
+          if (Globals.levelCount == 5)
           {
             cantChoose.Play();
           }
@@ -1024,8 +969,8 @@ public class hangarnav : MonoBehaviour
         }
         else if (onFalcon)
         {
-          //If Bespin level is chosen, play Unavailable sound when selecting ship
-          if (gm.GetComponent<levelcountScript>().levelcount == 3 || gm.GetComponent<levelcountScript>().levelcount == 5)
+          //If Hoth level is chosen, play Unavailable sound when selecting ship
+          if (Globals.levelCount == 5)
           {
             cantChoose.Play();
           }
@@ -1045,8 +990,8 @@ public class hangarnav : MonoBehaviour
         }
         else if (onTie)
         {
-          //If Bespin or Endor levels are chosen, play Unavailable sound when selecting ship
-          if (gm.GetComponent<levelcountScript>().levelcount == 3 || gm.GetComponent<levelcountScript>().levelcount == 4 || gm.GetComponent<levelcountScript>().levelcount == 5)
+          //If Hoth level is chosen, play Unavailable sound when selecting ship
+          if (Globals.levelCount == 5)
           {
             cantChoose.Play();
           }
@@ -1078,37 +1023,33 @@ public class hangarnav : MonoBehaviour
 
   }
 
-  static IEnumerator MoveOverTime(Transform theTransform, Vector3 d, float t)
+  public void LoadLevel()
   {
-    float rate = 1 / t;
-    float index = 0f;
-    Vector3 startPosition = theTransform.position;
-    Vector3 endPosition = startPosition + d;
-    while (index < 1)
+    if (Globals.levelCount == 1)
     {
-
-      theTransform.position = Vector3.Lerp(startPosition, endPosition, index);
-      index += rate * Time.deltaTime;
-      yield return index;
+      Application.LoadLevel("level1Intro");
     }
-    theTransform.position = endPosition;
+    if (Globals.levelCount == 2)
+    {
+      Application.LoadLevel("level2Intro");
+    }
+    if (Globals.levelCount == 3)
+    {
+      Application.LoadLevel("level3Intro");
+    }
+    if (Globals.levelCount == 4)
+    {
+      Application.LoadLevel("level4");
+    }
+    if (Globals.levelCount == 5)
+    {
+      Application.LoadLevel("level5Intro");
+    }
   }
 
-  static IEnumerator RotateOverTime(Transform theTransform, Quaternion d, float t)
-  {
-    float rate = 1 / t;
-    float index = 0f;
-    Quaternion startPosition = theTransform.rotation;
-    Quaternion endPosition = d;
-    while (index < 1)
-    {
 
-      theTransform.rotation = Quaternion.Lerp(startPosition, endPosition, index);
-      index += rate * Time.deltaTime;
-      yield return index;
-    }
-    theTransform.rotation = endPosition;
-  }
+
+
 
   //Animation for X-wing
   public IEnumerator xshipanim()
@@ -1118,43 +1059,33 @@ public class hangarnav : MonoBehaviour
     int num = 5;
     if (num == 5)
     {
-      StartCoroutine(MoveOverTime(xwing.transform, (xwing.transform.up * 80), 4));
+      StartCoroutine(Globals.MoveOverTime(xwing.transform, (xwing.transform.up * 80), 4));
       yield return new WaitForSeconds(4);
       num = 4;
     }
     if (num == 4)
     {
-      StartCoroutine(MoveOverTime(xwing.transform, (xwing.transform.forward * 800), 4));
+      StartCoroutine(Globals.MoveOverTime(xwing.transform, (xwing.transform.forward * 800), 4));
       yield return new WaitForSeconds(4);
       num = 3;
     }
     if (num == 3)
     {
-      StartCoroutine(RotateOverTime(xwing.transform, Quaternion.Euler(0, -90, 0), 3));
+      StartCoroutine(Globals.RotateOverTime(xwing.transform, Quaternion.Euler(0, -90, 0), 3));
       yield return new WaitForSeconds(3);
       num = 2;
     }
     if (num == 2)
     {
-      StartCoroutine(MoveOverTime(xwing.transform, (xwing.transform.forward * 3800), 5f));
+      StartCoroutine(Globals.MoveOverTime(xwing.transform, (xwing.transform.forward * 3800), 5f));
       yield return new WaitForSeconds(4.5f);
       num = 1;
     }
     if (num == 1)
     {
       loadingCanvas.GetComponent<CanvasGroup>().alpha = 1;
-      if (gm.GetComponent<levelcountScript>().levelcount == 1)
-      {
-        Application.LoadLevel("level2xwing");
-      }
-      if (gm.GetComponent<levelcountScript>().levelcount == 2)
-      {
-        Application.LoadLevel("level3xwing");
-      }
-      if (gm.GetComponent<levelcountScript>().levelcount == 4)
-      {
-        Application.LoadLevel("level5xwing");
-      }
+      Globals.ShipName = "XPlayer";
+      LoadLevel();
 
     }
   }
@@ -1168,43 +1099,33 @@ public class hangarnav : MonoBehaviour
     int num = 5;
     if (num == 5)
     {
-      StartCoroutine(MoveOverTime(ywing.transform, (ywing.transform.up * 80), 4));
+      StartCoroutine(Globals.MoveOverTime(ywing.transform, (ywing.transform.up * 80), 4));
       yield return new WaitForSeconds(4);
       num = 4;
     }
     if (num == 4)
     {
-      StartCoroutine(MoveOverTime(ywing.transform, (ywing.transform.forward * 800), 4));
+      StartCoroutine(Globals.MoveOverTime(ywing.transform, (ywing.transform.forward * 800), 4));
       yield return new WaitForSeconds(4);
       num = 3;
     }
     if (num == 3)
     {
-      StartCoroutine(RotateOverTime(ywing.transform, Quaternion.Euler(0, -90, 0), 3));
+      StartCoroutine(Globals.RotateOverTime(ywing.transform, Quaternion.Euler(0, -90, 0), 3));
       yield return new WaitForSeconds(3);
       num = 2;
     }
     if (num == 2)
     {
-      StartCoroutine(MoveOverTime(ywing.transform, (ywing.transform.forward * 3800), 5f));
+      StartCoroutine(Globals.MoveOverTime(ywing.transform, (ywing.transform.forward * 3800), 5f));
       yield return new WaitForSeconds(4.5f);
       num = 1;
     }
     if (num == 1)
     {
       loadingCanvas.GetComponent<CanvasGroup>().alpha = 1;
-      if (gm.GetComponent<levelcountScript>().levelcount == 1)
-      {
-        Application.LoadLevel("level2ywing");
-      }
-      if (gm.GetComponent<levelcountScript>().levelcount == 2)
-      {
-        Application.LoadLevel("level3ywing");
-      }
-      if (gm.GetComponent<levelcountScript>().levelcount == 4)
-      {
-        Application.LoadLevel("level5ywing");
-      }
+      Globals.ShipName = "YPlayer";
+      LoadLevel();
     }
   }
 
@@ -1216,47 +1137,33 @@ public class hangarnav : MonoBehaviour
     int num = 5;
     if (num == 5)
     {
-      StartCoroutine(MoveOverTime(awing.transform, (awing.transform.up * 80), 4));
+      StartCoroutine(Globals.MoveOverTime(awing.transform, (awing.transform.up * 80), 4));
       yield return new WaitForSeconds(4);
       num = 4;
     }
     if (num == 4)
     {
-      StartCoroutine(MoveOverTime(awing.transform, (awing.transform.forward * 800), 4));
+      StartCoroutine(Globals.MoveOverTime(awing.transform, (awing.transform.forward * 800), 4));
       yield return new WaitForSeconds(4);
       num = 3;
     }
     if (num == 3)
     {
-      StartCoroutine(RotateOverTime(awing.transform, Quaternion.Euler(0, -90, 0), 3));
+      StartCoroutine(Globals.RotateOverTime(awing.transform, Quaternion.Euler(0, -90, 0), 3));
       yield return new WaitForSeconds(3);
       num = 2;
     }
     if (num == 2)
     {
-      StartCoroutine(MoveOverTime(awing.transform, (awing.transform.forward * 3800), 5f));
+      StartCoroutine(Globals.MoveOverTime(awing.transform, (awing.transform.forward * 3800), 5f));
       yield return new WaitForSeconds(4.5f);
       num = 1;
     }
     if (num == 1)
     {
       loadingCanvas.GetComponent<CanvasGroup>().alpha = 1;
-      if (gm.GetComponent<levelcountScript>().levelcount == 1)
-      {
-        Application.LoadLevel("level2awing");
-      }
-      if (gm.GetComponent<levelcountScript>().levelcount == 2)
-      {
-        Application.LoadLevel("level3awing");
-      }
-      if (gm.GetComponent<levelcountScript>().levelcount == 3)
-      {
-        Application.LoadLevel("level4awing");
-      }
-      if (gm.GetComponent<levelcountScript>().levelcount == 4)
-      {
-        Application.LoadLevel("level5awing");
-      }
+      Globals.ShipName = "APlayer";
+      LoadLevel();
     }
   }
 
@@ -1268,43 +1175,33 @@ public class hangarnav : MonoBehaviour
     int num = 5;
     if (num == 5)
     {
-      StartCoroutine(MoveOverTime(falcon.transform, (falcon.transform.up * 80), 4));
+      StartCoroutine(Globals.MoveOverTime(falcon.transform, (falcon.transform.up * 80), 4));
       yield return new WaitForSeconds(4);
       num = 4;
     }
     if (num == 4)
     {
-      StartCoroutine(MoveOverTime(falcon.transform, (falcon.transform.forward * 1100), 4));
+      StartCoroutine(Globals.MoveOverTime(falcon.transform, (falcon.transform.forward * 1100), 4));
       yield return new WaitForSeconds(4);
       num = 3;
     }
     if (num == 3)
     {
-      StartCoroutine(RotateOverTime(falcon.transform, Quaternion.Euler(0, -90, 0), 3));
+      StartCoroutine(Globals.RotateOverTime(falcon.transform, Quaternion.Euler(0, -90, 0), 3));
       yield return new WaitForSeconds(3);
       num = 2;
     }
     if (num == 2)
     {
-      StartCoroutine(MoveOverTime(falcon.transform, (falcon.transform.forward * 3800), 5f));
+      StartCoroutine(Globals.MoveOverTime(falcon.transform, (falcon.transform.forward * 3800), 5f));
       yield return new WaitForSeconds(4.5f);
       num = 1;
     }
     if (num == 1)
     {
       loadingCanvas.GetComponent<CanvasGroup>().alpha = 1;
-      if (gm.GetComponent<levelcountScript>().levelcount == 1)
-      {
-        Application.LoadLevel("level2falcon");
-      }
-      if (gm.GetComponent<levelcountScript>().levelcount == 2)
-      {
-        Application.LoadLevel("level3falcon");
-      }
-      if (gm.GetComponent<levelcountScript>().levelcount == 4)
-      {
-        Application.LoadLevel("level5falcon");
-      }
+      Globals.ShipName = "FPlayer";
+      LoadLevel();
     }
   }
 
@@ -1316,33 +1213,27 @@ public class hangarnav : MonoBehaviour
     int num = 3;
     if (num == 3)
     {
-      StartCoroutine(MoveOverTime(transform, ywingcamera.transform.position - transform.position, 2f));
+      StartCoroutine(Globals.MoveOverTime(transform, ywingcamera.transform.position - transform.position, 2f));
       yield return new WaitForSeconds(0);
       num = 2;
     }
     if (num == 2)
     {
-      StartCoroutine(MoveOverTime(tie.transform, (tie.transform.up * 80), 3));
+      StartCoroutine(Globals.MoveOverTime(tie.transform, (tie.transform.up * 80), 3));
       yield return new WaitForSeconds(3);
       num = 1;
     }
     if (num == 1)
     {
-      StartCoroutine(MoveOverTime(tie.transform, (tie.transform.forward * 3800), 5));
+      StartCoroutine(Globals.MoveOverTime(tie.transform, (tie.transform.forward * 3800), 5));
       yield return new WaitForSeconds(5);
       num = 0;
     }
     if (num == 0)
     {
       loadingCanvas.GetComponent<CanvasGroup>().alpha = 1;
-      if (gm.GetComponent<levelcountScript>().levelcount == 1)
-      {
-        Application.LoadLevel("level2tie");
-      }
-      if (gm.GetComponent<levelcountScript>().levelcount == 2)
-      {
-        Application.LoadLevel("level3tie");
-      }
+      Globals.ShipName = "TPlayer";
+      LoadLevel();
     }
   }
 
@@ -1354,35 +1245,33 @@ public class hangarnav : MonoBehaviour
     int num = 5;
     if (num == 5)
     {
-      StartCoroutine(MoveOverTime(snow.transform, (snow.transform.up * 80), 4));
+      StartCoroutine(Globals.MoveOverTime(snow.transform, (snow.transform.up * 80), 4));
       yield return new WaitForSeconds(4);
       num = 4;
     }
     if (num == 4)
     {
-      StartCoroutine(MoveOverTime(snow.transform, (snow.transform.forward * 800), 4));
+      StartCoroutine(Globals.MoveOverTime(snow.transform, (snow.transform.forward * 800), 4));
       yield return new WaitForSeconds(4);
       num = 3;
     }
     if (num == 3)
     {
-      StartCoroutine(RotateOverTime(snow.transform, Quaternion.Euler(0, -90, 0), 3));
+      StartCoroutine(Globals.RotateOverTime(snow.transform, Quaternion.Euler(0, -90, 0), 3));
       yield return new WaitForSeconds(3);
       num = 2;
     }
     if (num == 2)
     {
-      StartCoroutine(MoveOverTime(snow.transform, (snow.transform.forward * 3800), 5f));
+      StartCoroutine(Globals.MoveOverTime(snow.transform, (snow.transform.forward * 3800), 5f));
       yield return new WaitForSeconds(4.5f);
       num = 1;
     }
     if (num == 1)
     {
       loadingCanvas.GetComponent<CanvasGroup>().alpha = 1;
-      if (gm.GetComponent<levelcountScript>().levelcount == 5)
-      {
-        Application.LoadLevel("level6snowspeeder");
-      }
+      Globals.ShipName = "SPlayer";
+      LoadLevel();
     }
   }
 
@@ -1397,20 +1286,20 @@ public class hangarnav : MonoBehaviour
     if (num == 4)
     {
       yield return new WaitForSeconds(3);
-      StartCoroutine(MoveOverTime(tie.transform, (tie.transform.forward * 1800), 4));
+      StartCoroutine(Globals.MoveOverTime(tie.transform, (tie.transform.forward * 1800), 4));
       yield return new WaitForSeconds(4);
-      StartCoroutine(MoveOverTime(tie.transform, (tie.transform.up * 40), 1));
+      StartCoroutine(Globals.MoveOverTime(tie.transform, (tie.transform.up * 40), 1));
       num = 3;
     }
     if (num == 3)
     {
-      StartCoroutine(RotateOverTime(tie.transform, Quaternion.Euler(0, -90, 0), 2));
+      StartCoroutine(Globals.RotateOverTime(tie.transform, Quaternion.Euler(0, -90, 0), 2));
       yield return new WaitForSeconds(2);
       num = 2;
     }
     if (num == 2)
     {
-      StartCoroutine(MoveOverTime(tie.transform, (tie.transform.forward * 300), 1));
+      StartCoroutine(Globals.MoveOverTime(tie.transform, (tie.transform.forward * 300), 1));
       yield return new WaitForSeconds(1);
       num = 1;
     }

@@ -18,7 +18,7 @@ public class levelSelectScript : MonoBehaviour
 
   public GameObject image5;
   public GameObject loadingCanvas;
-  public GameObject levelcounterObject;
+  public GameObject gm;
 
   public GameObject OnHover;
 
@@ -31,8 +31,8 @@ public class levelSelectScript : MonoBehaviour
   {
     gt = GetComponent<GUIText>();
     Time.timeScale = 1;
-    levelcounterObject = GameObject.Find("levelCounterObject");
-    levelcounterObject.GetComponent<levelcountScript>().levelcount = 1;
+    gm = GameObject.Find("GameManager");
+    Globals.levelCount = 1;
     image1 = GameObject.Find("Image");
     image2 = GameObject.Find("Image2");
     image3 = GameObject.Find("Image3");
@@ -89,7 +89,7 @@ public class levelSelectScript : MonoBehaviour
     }
     if (!currentlevel)
     {
-      if (levelcounterObject.GetComponent<levelcountScript>().levelcount == 1)
+      if (Globals.levelCount == 1)
       {
         image1.SetActive(true);
         image2.SetActive(false);
@@ -102,7 +102,7 @@ public class levelSelectScript : MonoBehaviour
         leftbtn.SetActive(false);
         currentlevel = true;
       }
-      if (levelcounterObject.GetComponent<levelcountScript>().levelcount == 2)
+      if (Globals.levelCount == 2)
       {
         image1.SetActive(false);
         image2.SetActive(true);
@@ -115,7 +115,7 @@ public class levelSelectScript : MonoBehaviour
         rightbtn.SetActive(true);
         currentlevel = true;
       }
-      if (levelcounterObject.GetComponent<levelcountScript>().levelcount == 3)
+      if (Globals.levelCount == 3)
       {
         image1.SetActive(false);
         image2.SetActive(false);
@@ -128,7 +128,7 @@ public class levelSelectScript : MonoBehaviour
         rightbtn.SetActive(true);
         currentlevel = true;
       }
-      if (levelcounterObject.GetComponent<levelcountScript>().levelcount == 4)
+      if (Globals.levelCount == 4)
       {
         image1.SetActive(false);
         image2.SetActive(false);
@@ -141,7 +141,7 @@ public class levelSelectScript : MonoBehaviour
         rightbtn.SetActive(true);
         currentlevel = true;
       }
-      if (levelcounterObject.GetComponent<levelcountScript>().levelcount == 5)
+      if (Globals.levelCount == 5)
       {
         image1.SetActive(false);
         image2.SetActive(false);
@@ -156,11 +156,11 @@ public class levelSelectScript : MonoBehaviour
       }
     }
 
-    if (Input.GetKeyDown(KeyCode.LeftArrow) && levelcounterObject.GetComponent<levelcountScript>().levelcount != 1)
+    if (Input.GetKeyDown(KeyCode.LeftArrow) && Globals.levelCount != 1)
     {
       PrevLevel();
     }
-    if (Input.GetKeyDown(KeyCode.RightArrow) && levelcounterObject.GetComponent<levelcountScript>().levelcount != 5)
+    if (Input.GetKeyDown(KeyCode.RightArrow) && Globals.levelCount != 5)
     {
       NextLevel();
     }
@@ -187,22 +187,7 @@ public class levelSelectScript : MonoBehaviour
   {
     yield return new WaitForSecondsRealtime(2);
     loadingCanvas.GetComponent<CanvasGroup>().alpha = 1;
-    if (levelcounterObject.GetComponent<levelcountScript>().levelcount == 1)
-    {
-      Application.LoadLevel("level1Intro");
-    }
-    else if (levelcounterObject.GetComponent<levelcountScript>().levelcount == 2)
-    {
-      Application.LoadLevel("level3Intro");
-    }
-    else if (levelcounterObject.GetComponent<levelcountScript>().levelcount == 5)
-    {
-      Application.LoadLevel("level6Intro");
-    }
-    else
-    {
-      Application.LoadLevel("vehicleselect");
-    }
+    Application.LoadLevel("vehicleselect");
 
   }
 
@@ -225,13 +210,13 @@ public class levelSelectScript : MonoBehaviour
 
   public void NextLevel()
   {
-    levelcounterObject.GetComponent<levelcountScript>().levelcount++;
+    Globals.levelCount++;
     currentlevel = false;
 
   }
   public void PrevLevel()
   {
-    levelcounterObject.GetComponent<levelcountScript>().levelcount--;
+    Globals.levelCount--;
     currentlevel = false;
   }
 

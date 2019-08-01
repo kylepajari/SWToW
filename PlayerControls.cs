@@ -83,7 +83,7 @@ public class PlayerControls : MonoBehaviour
 
   public Vector3 targetNormal;
 
-  //Floats to keep track of team scores for level2
+  //Floats to keep track of team scores for level1
   public float rebelScore;
   public float impScore;
   public float scoreLimit;
@@ -182,7 +182,6 @@ public class PlayerControls : MonoBehaviour
   // Use this for initialization
   void Start()
   {
-    Destroy(GameObject.Find("levelCounterObject"));
     Time.timeScale = 1;
     sounds = GetComponents<AudioSource>();
     healthSlider = GameObject.Find("HealthSlider").GetComponent<Slider>();
@@ -198,13 +197,14 @@ public class PlayerControls : MonoBehaviour
     ScoreText = GameObject.Find("ScoreText").GetComponent<Text>();
     objCanvas = GameObject.Find("ObjectiveUI");
     damageImage = GameObject.Find("DamageImage").GetComponent<Image>();
-
+    spawnpoint = GameObject.Find("SpawnPoint").GetComponent<Transform>();
     hudCanvas = GameObject.Find("HUDCanvas");
     youwin = GameObject.Find("YouWin");
     youwin.GetComponent<CanvasGroup>().alpha = 0;
+    playercam = Camera.main.gameObject;
     if (transform.name == "XPlayer")
     {
-      spawnpoint = GameObject.Find("SpawnPoint").GetComponent<Transform>();
+      playercam.transform.localPosition = new Vector3(0, 0.51f, -2.0f);
       cannon = transform.Find("cannon");
       cannon2 = transform.Find("cannon (1)");
       cannon3 = transform.Find("cannon (2)");
@@ -234,7 +234,7 @@ public class PlayerControls : MonoBehaviour
     }
     if (transform.name == "APlayer")
     {
-      spawnpoint = GameObject.Find("SpawnPoint").GetComponent<Transform>();
+      playercam.transform.localPosition = new Vector3(0, 120f, -450f);
       cannon = transform.Find("cannon");
       cannon2 = transform.Find("cannon2");
       etrail = transform.Find("etrail1");
@@ -249,7 +249,7 @@ public class PlayerControls : MonoBehaviour
     }
     if (transform.name == "YPlayer")
     {
-      spawnpoint = GameObject.Find("SpawnPoint").GetComponent<Transform>();
+      playercam.transform.localPosition = new Vector3(0, 700f, -2500f);
       cannon = transform.Find("cannon");
       cannon2 = transform.Find("cannon2");
       IonCannon = transform.Find("protonCannon");
@@ -266,7 +266,7 @@ public class PlayerControls : MonoBehaviour
     }
     if (transform.name == "FPlayer")
     {
-      spawnpoint = GameObject.Find("SpawnPoint").GetComponent<Transform>();
+      playercam.transform.localPosition = new Vector3(0, 8.2f, -26.65f);
       cannon = transform.Find("cannon");
       cannon2 = transform.Find("cannon2");
       cannon3 = transform.Find("cannon3");
@@ -281,7 +281,7 @@ public class PlayerControls : MonoBehaviour
     }
     if (transform.name == "TPlayer")
     {
-      spawnpoint = GameObject.Find("Hangar").GetComponent<Transform>();
+      playercam.transform.localPosition = new Vector3(0f, 9f, -31f);
       cannon = transform.Find("cannon1");
       cannon2 = transform.Find("cannon2");
       cannon3 = transform.Find("cannon3");
@@ -295,7 +295,7 @@ public class PlayerControls : MonoBehaviour
     }
     if (transform.name == "SPlayer")
     {
-      spawnpoint = GameObject.Find("SpawnPoint").GetComponent<Transform>();
+      playercam.transform.localPosition = new Vector3(0, 260, -950);
       cannon = transform.Find("cannon");
       cannon2 = transform.Find("cannon2");
       etrail = transform.Find("etrail1");
@@ -308,7 +308,7 @@ public class PlayerControls : MonoBehaviour
     }
     if (transform.name == "NPlayer")
     {
-      spawnpoint = GameObject.Find("SpawnPoint").GetComponent<Transform>();
+      playercam.transform.localPosition = new Vector3(0f, 250f, -1000f);
       cannon = transform.Find("cannon");
       cannon2 = transform.Find("cannon2");
       etrail = transform.Find("etrail");
@@ -321,27 +321,27 @@ public class PlayerControls : MonoBehaviour
     }
 
     lifeCount = 3;
-    livesText = GameObject.Find("LivesCounter").GetComponent<Text>();
+    livesText = Globals.FindObject(HealthUI, "LivesCounter").GetComponent<Text>();
     livesText.text = lifeCount.ToString();
-    livesUI = GameObject.Find("LivesText");
-    if (Application.loadedLevelName.Contains("level2"))
+    livesUI = Globals.FindObject(HealthUI, "LivesText");
+    if (Application.loadedLevelName == "level1" && livesUI.active)
     {
       livesUI.SetActive(false);
     }
-    if (Application.loadedLevelName.Contains("level5"))
+    if (Application.loadedLevelName == "level4")
     {
       checkpoint1 = GameObject.Find("Checkpoint1");
       checkpoint2 = GameObject.Find("Checkpoint2");
     }
-
+    playercamOrigPos = playercam.transform.localPosition;
+    playercamOrigRot = playercam.transform.localRotation;
 
     fireOrder = 1;
     nextShot = true;
 
     view = 0;
-    playercam = GameObject.Find("Main Camera");
-    playercamOrigPos = playercam.transform.localPosition;
-    playercamOrigRot = playercam.transform.localRotation;
+
+
     Cursor.visible = false;
     Cursor.lockState = CursorLockMode.Locked;
 
@@ -1004,20 +1004,10 @@ public class PlayerControls : MonoBehaviour
         youwin.GetComponent<CanvasGroup>().alpha = 1;
         hudCanvas.GetComponent<CanvasGroup>().alpha = 0;
         objCanvas.GetComponent<CanvasGroup>().alpha = 0;
-        if (transform.name == "TPlayer")
-        {
-          winScreen.text = "Defeat";
-          winScreen.color = Color.red;
-          ScoreText.text = "Kills: " + playerKills + "    Deaths: " + playerDeaths + " ";
-          ScoreText.color = Color.white;
-        }
-        else
-        {
-          winScreen.text = "Victory";
-          winScreen.color = Color.yellow;
-          ScoreText.text = "Kills: " + playerKills + "    Deaths: " + playerDeaths + " ";
-          ScoreText.color = Color.white;
-        }
+        winScreen.text = "Victory";
+        winScreen.color = Color.yellow;
+        ScoreText.text = "Kills: " + playerKills + "    Deaths: " + playerDeaths + " ";
+        ScoreText.color = Color.white;
         gameover = true;
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
@@ -1034,20 +1024,10 @@ public class PlayerControls : MonoBehaviour
         youwin.GetComponent<CanvasGroup>().alpha = 1;
         hudCanvas.GetComponent<CanvasGroup>().alpha = 0;
         objCanvas.GetComponent<CanvasGroup>().alpha = 0;
-        if (transform.name == "TPlayer")
-        {
-          winScreen.text = "Victory";
-          winScreen.color = Color.blue;
-          ScoreText.text = "Kills: " + playerKills + "    Deaths: " + playerDeaths + " ";
-          ScoreText.color = Color.white;
-        }
-        else
-        {
-          winScreen.text = "Defeat";
-          winScreen.color = Color.red;
-          ScoreText.text = "Kills: " + playerKills + "    Deaths: " + playerDeaths + " ";
-          ScoreText.color = Color.white;
-        }
+        winScreen.text = "Defeat";
+        winScreen.color = Color.red;
+        ScoreText.text = "Kills: " + playerKills + "    Deaths: " + playerDeaths + " ";
+        ScoreText.color = Color.white;
         gameover = true;
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
@@ -1056,8 +1036,8 @@ public class PlayerControls : MonoBehaviour
       }
     }
 
-    //If not on level2(First mission)
-    if (!Application.loadedLevelName.Contains("level2"))
+    //If not on level1(First mission)
+    if (Application.loadedLevelName != "level1")
     {
       ///////////////////Check if players Lives reach 0, if so GameOver/////////////////////////////
       if (lifeCount <= -1)
@@ -1081,8 +1061,8 @@ public class PlayerControls : MonoBehaviour
       }
     }
 
-    //If on level5(Fourth mission)
-    if (Application.loadedLevelName.Contains("level5"))
+    //If on level4(Fourth mission)
+    if (Application.loadedLevelName == "level4")
     {
       if (buildingsDestroyed >= buildingsToWin)
       {
@@ -1107,7 +1087,6 @@ public class PlayerControls : MonoBehaviour
 
   }
 
-  //Modified to work when you get angles outside of -/+720 
   static float ClampAngle(float angle, float min, float max)
   {
     while (angle < -360)
@@ -1121,7 +1100,6 @@ public class PlayerControls : MonoBehaviour
     return Mathf.Clamp(angle, min, max);
   }
 
-  // Update is called once per frame
   void FixedUpdate()
   {
     if (keyboardControls && Input.GetAxis("Mouse X") == 0)
@@ -1143,15 +1121,7 @@ public class PlayerControls : MonoBehaviour
     //Bank
     if (!Mathf.Approximately(deltaX, 0.0f))
     {
-      if (transform.name == "TPlayer")
-      {
-        rotZ = ClampAngle(rotZ - ClampAngle(-deltaX * bankScale, -maxBank, maxBank) * Time.deltaTime, -bankRange, bankRange);
-      }
-      else
-      {
-        rotZ = ClampAngle(rotZ - ClampAngle(deltaX * bankScale, -maxBank, maxBank) * Time.deltaTime, -bankRange, bankRange);
-      }
-
+      rotZ = ClampAngle(rotZ - ClampAngle(deltaX * bankScale, -maxBank, maxBank) * Time.deltaTime, -bankRange, bankRange);
     }
     else if (rotZ > 0.0f)
     {
@@ -1166,30 +1136,15 @@ public class PlayerControls : MonoBehaviour
     //Turn
     rotY = ClampAngle(rotY + ClampAngle(deltaX * turnScale, -maxTurn, maxTurn) * Time.deltaTime, -turnRange, turnRange);
     //Tilt
-    if (transform.name == "TPlayer")
+    if (Globals.pitchInverted == 0)
     {
-      if (Globals.pitchInverted == 0)
-      {
-        rotX = ClampAngle(rotX - ClampAngle(-deltaY * tiltScale, -maxTilt, maxTilt) * Time.deltaTime, -tiltRange, tiltRange);
-      }
-      else
-      {
-        rotX = ClampAngle(rotX - ClampAngle(deltaY * tiltScale, -maxTilt, maxTilt) * Time.deltaTime, -tiltRange, tiltRange);
-      }
-
+      rotX = ClampAngle(rotX - ClampAngle(deltaY * tiltScale, -maxTilt, maxTilt) * Time.deltaTime, -tiltRange, tiltRange);
     }
     else
     {
-      if (Globals.pitchInverted == 0)
-      {
-        rotX = ClampAngle(rotX - ClampAngle(deltaY * tiltScale, -maxTilt, maxTilt) * Time.deltaTime, -tiltRange, tiltRange);
-      }
-      else
-      {
-        rotX = ClampAngle(rotX - ClampAngle(-deltaY * tiltScale, -maxTilt, maxTilt) * Time.deltaTime, -tiltRange, tiltRange);
-      }
-
+      rotX = ClampAngle(rotX - ClampAngle(-deltaY * tiltScale, -maxTilt, maxTilt) * Time.deltaTime, -tiltRange, tiltRange);
     }
+
 
     transform.localRotation = Quaternion.Euler(rotX, rotY, rotZ) * originalRot;
 
@@ -1489,59 +1444,34 @@ public class PlayerControls : MonoBehaviour
 
   void OnTriggerEnter(Collider col)
   {
-    if (col.name == "redlaser(Clone)")
+    if (col.name == "greenlaser(Clone)" && col.tag != "PlayersLaser")
     {
-      if (transform.name == "TPlayer")
+      damaged = true;
+      playerHealth -= 10;
+      UpdateHealthBar();
+      Destroy(col.gameObject);
+      if (playerHealth <= 0)
       {
-        damaged = true;
-        playerHealth -= 10;
-        UpdateHealthBar();
-        Destroy(col.gameObject);
-        if (playerHealth <= 0)
+        if (!isRunning)
         {
-          if (!isRunning)
-          {
-            isRunning = true;
-            StartCoroutine(deathSpin());
-          }
-        }
-      }
-    }
-
-    if (col.name == "greenlaser(Clone)")
-    {
-      if (transform.name != "TPlayer" && transform.name != "NPlayer")
-      {
-        damaged = true;
-        playerHealth -= 10;
-        UpdateHealthBar();
-        Destroy(col.gameObject);
-        if (playerHealth <= 0)
-        {
-          if (!isRunning)
-          {
-            isRunning = true;
-            StartCoroutine(deathSpin());
-          }
+          isRunning = true;
+          StartCoroutine(deathSpin());
         }
       }
     }
 
     if (col.name == "atatlaser(Clone)")
     {
-      if (transform.name != "TPlayer")
+      damaged = true;
+      playerHealth -= 75;
+      UpdateHealthBar();
+      Destroy(col.gameObject);
+      if (playerHealth <= 0)
       {
-        damaged = true;
-        playerHealth -= 75;
-        UpdateHealthBar();
-        Destroy(col.gameObject);
-        if (playerHealth <= 0)
+        if (!isRunning)
         {
-          if (!isRunning)
-          {
-            isRunning = true;
-            StartCoroutine(deathSpin());
-          }
+          isRunning = true;
+          StartCoroutine(deathSpin());
         }
       }
     }
@@ -1657,18 +1587,10 @@ public class PlayerControls : MonoBehaviour
     lookingback = false;
     transform.GetComponent<Rigidbody>().isKinematic = true;
     hudCanvas.GetComponent<CanvasGroup>().alpha = 1;
-    if (Application.loadedLevelName.Contains("level2"))
+    if (Application.loadedLevelName == "level1")
     {
       ScoreUI.GetComponent<CanvasGroup>().alpha = 1;
-      if (transform.name == "TPlayer")
-      {
-        rebelScore += 1;
-      }
-      else
-      {
-        impScore += 1;
-      }
-
+      impScore += 1;
     }
     objCanvas.GetComponent<CanvasGroup>().alpha = 1;
     livesText.text = lifeCount.ToString();
@@ -1816,8 +1738,8 @@ public class PlayerControls : MonoBehaviour
     yield return new WaitForSeconds(3f);
     lifeCount--;
     playerDeaths += 1;
-    //If not on level2(First mission)
-    if (!Application.loadedLevelName.Contains("level2"))
+    //If not on level1(First mission)
+    if (Application.loadedLevelName != "level1")
     {
       ///////////////////Check if players Lives reach 0, if so GameOver/////////////////////////////
       if (lifeCount <= -1)
@@ -1913,40 +1835,17 @@ public class PlayerControls : MonoBehaviour
       }
     }
 
-
-
-    if (col.collider.tag == "Rebel")
-    {
-      if (transform.name == "TPlayer")
-      {
-        damaged = true;
-        playerHealth -= 100;
-        UpdateHealthBar();
-        if (playerHealth <= 0)
-        {
-          if (!isRunning)
-          {
-            isRunning = true;
-            StartCoroutine(deathSpin());
-          }
-        }
-      }
-    }
-
     if (col.collider.tag == "Empire")
     {
-      if (transform.name != "TPlayer")
+      damaged = true;
+      playerHealth -= 100;
+      UpdateHealthBar();
+      if (playerHealth <= 0)
       {
-        damaged = true;
-        playerHealth -= 100;
-        UpdateHealthBar();
-        if (playerHealth <= 0)
+        if (!isRunning)
         {
-          if (!isRunning)
-          {
-            isRunning = true;
-            StartCoroutine(deathSpin());
-          }
+          isRunning = true;
+          StartCoroutine(deathSpin());
         }
       }
     }

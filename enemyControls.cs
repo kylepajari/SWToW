@@ -315,7 +315,7 @@ public class enemyControls : MonoBehaviour
       if (enemyHealth <= 0)
       {
         Instantiate(explosion, transform.position, transform.rotation);
-        if (Application.loadedLevelName.Contains("level5"))
+        if (Application.loadedLevelName == "level4")
         {
           Destroy(gameObject);
         }
@@ -331,7 +331,7 @@ public class enemyControls : MonoBehaviour
       Instantiate(explosion, transform.position, transform.rotation);
 
       //Destroy ship
-      if (Application.loadedLevelName.Contains("level2") || Application.loadedLevelName.Contains("level3") || Application.loadedLevelName.Contains("level4"))
+      if (Application.loadedLevelName == "level1" || Application.loadedLevelName == "level2" || Application.loadedLevelName == "level1tie" || Application.loadedLevelName == "level2tie" || Application.loadedLevelName == "level3")
       {
         CheckDead();
       }
@@ -413,7 +413,7 @@ public class enemyControls : MonoBehaviour
   void OnTriggerEnter(Collider col)
   {
     //Check to see if ship collided with redlaser
-    if (col.name == "redlaser(Clone)")
+    if (col.name == "redlaser(Clone)" || col.tag == "PlayersLaser")
     {
       //Destroy red laser
       Destroy(col.gameObject);
@@ -450,7 +450,7 @@ public class enemyControls : MonoBehaviour
           }
         }
         Instantiate(explosion, transform.position, transform.rotation);
-        if (Application.loadedLevelName.Contains("level5"))
+        if (Application.loadedLevelName == "level4")
         {
           Destroy(gameObject);
         }
@@ -505,7 +505,7 @@ public class enemyControls : MonoBehaviour
           }
         }
         Instantiate(explosion, transform.position, transform.rotation);
-        if (Application.loadedLevelName.Contains("level5"))
+        if (Application.loadedLevelName == "level4")
         {
           Destroy(gameObject);
         }

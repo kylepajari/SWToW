@@ -66,7 +66,7 @@ public class level1introscript : MonoBehaviour
     if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Space))
     {
       Loading.GetComponent<CanvasGroup>().alpha = 1;
-      Application.LoadLevel("vehicleselect");
+      Application.LoadLevel("level1");
     }
 
 
@@ -186,7 +186,7 @@ public class level1introscript : MonoBehaviour
     if (num == 1)
     {
       Loading.GetComponent<CanvasGroup>().alpha = 1;
-      Application.LoadLevel("vehicleselect");
+      Application.LoadLevel("level1");
     }
   }
 }
