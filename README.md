@@ -51,6 +51,6 @@ Esc- Pause Menu
 
 Links to builds for Windows and Mac, provided by Google Drive:
 
-Windows 8/1/2019 - https://drive.google.com/open?id=1RCiMlE3EidsYYNm0ZvKkRWzSLlxq4jLN
+Windows - 8/1/2019 - https://drive.google.com/open?id=1rmc2KcJKH8tALi0Afl4icuR4UB2FG0I3
 
-Mac - New build coming soon!
+Mac - 8/1/2019 - https://drive.google.com/open?id=1URLkwAH-KRx6nMjggF8PrQLuMRUmutXD
