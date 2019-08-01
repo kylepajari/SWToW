@@ -113,8 +113,6 @@ public class PlayerControls : MonoBehaviour
   public GameObject hudCanvas;
   public GameObject objCanvas;
 
-  public GameObject Fade;
-
   public bool gameover;
   public bool gameoverrunning;
   public GameObject youwin;
@@ -198,7 +196,7 @@ public class PlayerControls : MonoBehaviour
     winScreen = GameObject.Find("YouWin").GetComponent<Text>();
     ScoreText = GameObject.Find("ScoreText").GetComponent<Text>();
     objCanvas = GameObject.Find("ObjectiveUI");
-    Fade = GameObject.Find("FadeToBlack");
+    Globals.Fade = GameObject.Find("FadeToBlack");
     damageImage = GameObject.Find("DamageImage").GetComponent<Image>();
     spawnpoint = GameObject.Find("SpawnPoint").GetComponent<Transform>();
     hudCanvas = GameObject.Find("HUDCanvas");
@@ -1621,6 +1619,10 @@ public class PlayerControls : MonoBehaviour
       engineGlow2.GetComponent<Light>().enabled = true;
       engineGlow3.GetComponent<Light>().enabled = true;
       engineGlow4.GetComponent<Light>().enabled = true;
+      etrail.GetComponent<Renderer>().enabled = false;
+      etrail2.GetComponent<Renderer>().enabled = false;
+      etrail3.GetComponent<Renderer>().enabled = false;
+      etrail4.GetComponent<Renderer>().enabled = false;
     }
     if (transform.name == "APlayer")
     {
@@ -1632,14 +1634,20 @@ public class PlayerControls : MonoBehaviour
       GetComponent<LockOnScript>().locked = false;
       engineGlow1.GetComponent<Light>().enabled = true;
       engineGlow2.GetComponent<Light>().enabled = true;
+      etrail.GetComponent<Renderer>().enabled = false;
+      etrail2.GetComponent<Renderer>().enabled = false;
     }
     if (transform.name == "SPlayer")
     {
       playerHealth = playerHealthOrig;
+      etrail.GetComponent<Renderer>().enabled = false;
+      etrail2.GetComponent<Renderer>().enabled = false;
     }
     if (transform.name == "NPlayer")
     {
       playerHealth = playerHealthOrig;
+      etrail.GetComponent<Renderer>().enabled = false;
+      etrail2.GetComponent<Renderer>().enabled = false;
     }
     if (transform.name == "YPlayer")
     {
@@ -1651,6 +1659,8 @@ public class PlayerControls : MonoBehaviour
       GetComponent<LockOnScript>().locked = false;
       engineGlow1.GetComponent<Light>().enabled = true;
       engineGlow2.GetComponent<Light>().enabled = true;
+      etrail.GetComponent<Renderer>().enabled = false;
+      etrail2.GetComponent<Renderer>().enabled = false;
     }
     if (transform.name == "FPlayer")
     {
@@ -1665,6 +1675,8 @@ public class PlayerControls : MonoBehaviour
       {
         glow.enabled = true;
       }
+      etrail.GetComponent<Renderer>().enabled = false;
+      etrail2.GetComponent<Renderer>().enabled = false;
     }
     if (transform.name == "TPlayer")
     {
@@ -1696,6 +1708,7 @@ public class PlayerControls : MonoBehaviour
       r.enabled = false;
     }
     Instantiate(explosion, transform.position, transform.rotation);
+
     if (transform.name == "XPlayer")
     {
       sounds[Random.Range(6, sounds.Length)].Play();
@@ -1875,6 +1888,9 @@ public class PlayerControls : MonoBehaviour
     yield return new WaitForSeconds(2f);
     StartCoroutine(Globals.FadeToBlack(1f, 1.0f));
     yield return new WaitForSeconds(2f);
+    Cursor.visible = true;
+    Cursor.lockState = CursorLockMode.Confined;
+    Time.timeScale = 1;
     Application.LoadLevel("levelselect");
   }
 }
