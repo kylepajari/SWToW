@@ -17,14 +17,6 @@ public class level1introscript : MonoBehaviour
 
   public bool canLook;
 
-  public Transform cannon;
-  public Transform cannon2;
-
-  public AudioSource[] sounds;
-  public AudioSource shoot;
-
-  public GameObject greenlaser;
-
   public GameObject Loading;
 
   // Use this for initialization
@@ -33,10 +25,6 @@ public class level1introscript : MonoBehaviour
     Time.timeScale = 1;
     destroyer = GameObject.Find("StarDestroyer");
     Transform ship = destroyer.transform;
-    cannon = ship.Find("cannon");
-    cannon2 = ship.Find("cannon2");
-    sounds = GetComponents<AudioSource>();
-    shoot = sounds[1];
     moncal = GameObject.Find("MonCalCruiser");
     GameObject gm = GameObject.Find("GameManager");
     camPos1 = GameObject.Find("camPos1").transform;
@@ -45,6 +33,7 @@ public class level1introscript : MonoBehaviour
     DialogCanvas.GetComponent<CanvasGroup>().alpha = 0;
     canLook = false;
     Loading = GameObject.Find("LoadingUI");
+    Globals.Fade = GameObject.Find("FadeToBlack");
 
   }
 
@@ -126,20 +115,6 @@ public class level1introscript : MonoBehaviour
     }
   }
 
-  void ShootLeft()
-  {
-    GameObject laser1 = Instantiate(greenlaser, cannon.transform.position, cannon.transform.rotation) as GameObject;
-    laser1.GetComponent<Rigidbody>().AddForce(transform.forward * (20 * 10f), ForceMode.Impulse);
-    shoot.Play();
-  }
-
-  void ShootRight()
-  {
-    GameObject laser1 = Instantiate(greenlaser, cannon2.transform.position, cannon2.transform.rotation) as GameObject;
-    laser1.GetComponent<Rigidbody>().AddForce(transform.forward * (20 * 10f), ForceMode.Impulse);
-    shoot.Play();
-  }
-
   public IEnumerator introsequence()
   {
     isRunning = true;
@@ -160,27 +135,17 @@ public class level1introscript : MonoBehaviour
       StartCoroutine(FadeAway(0f, 2.0f));
       transform.position = camPos1.position;
       canLook = true;
-      StartCoroutine(MoveOverTime(moncal.transform, (moncal.transform.right * 500), 10));
+      StartCoroutine(MoveOverTime(moncal.transform, (-moncal.transform.up * 500), 10));
       yield return new WaitForSeconds(10f);
       num = 2;
     }
     if (num == 2)
     {
       transform.position = camPos2.position;
-      StartCoroutine(MoveOverTime(destroyer.transform, (-destroyer.transform.up * 600), 30));
-      yield return new WaitForSeconds(8f);
-      ShootLeft();
-      yield return new WaitForSeconds(1f);
-      ShootRight();
+      StartCoroutine(MoveOverTime(destroyer.transform, (-destroyer.transform.up * 600), 24));
+      yield return new WaitForSeconds(23f);
+      StartCoroutine(Globals.FadeToBlack(1f, 1.0f));
       yield return new WaitForSeconds(2f);
-      ShootLeft();
-      yield return new WaitForSeconds(1f);
-      ShootRight();
-      yield return new WaitForSeconds(4f);
-      ShootLeft();
-      yield return new WaitForSeconds(1f);
-      ShootRight();
-      yield return new WaitForSeconds(13f);
       num = 1;
     }
     if (num == 1)

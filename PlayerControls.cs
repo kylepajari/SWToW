@@ -113,6 +113,8 @@ public class PlayerControls : MonoBehaviour
   public GameObject hudCanvas;
   public GameObject objCanvas;
 
+  public GameObject Fade;
+
   public bool gameover;
   public bool gameoverrunning;
   public GameObject youwin;
@@ -196,6 +198,7 @@ public class PlayerControls : MonoBehaviour
     winScreen = GameObject.Find("YouWin").GetComponent<Text>();
     ScoreText = GameObject.Find("ScoreText").GetComponent<Text>();
     objCanvas = GameObject.Find("ObjectiveUI");
+    Fade = GameObject.Find("FadeToBlack");
     damageImage = GameObject.Find("DamageImage").GetComponent<Image>();
     spawnpoint = GameObject.Find("SpawnPoint").GetComponent<Transform>();
     hudCanvas = GameObject.Find("HUDCanvas");
@@ -1011,7 +1014,7 @@ public class PlayerControls : MonoBehaviour
         gameover = true;
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
-        Time.timeScale = 0;
+        // Time.timeScale = 0;
         StartCoroutine(gameOver());
       }
     }
@@ -1031,7 +1034,7 @@ public class PlayerControls : MonoBehaviour
         gameover = true;
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
-        Time.timeScale = 0;
+        // Time.timeScale = 0;
         StartCoroutine(gameOver());
       }
     }
@@ -1055,7 +1058,7 @@ public class PlayerControls : MonoBehaviour
           gameover = true;
           Cursor.visible = false;
           Cursor.lockState = CursorLockMode.Locked;
-          Time.timeScale = 0;
+          // Time.timeScale = 0;
           StartCoroutine(gameOver());
         }
       }
@@ -1079,7 +1082,7 @@ public class PlayerControls : MonoBehaviour
           gameover = true;
           Cursor.visible = false;
           Cursor.lockState = CursorLockMode.Locked;
-          Time.timeScale = 0;
+          // Time.timeScale = 0;
           StartCoroutine(gameOver());
         }
       }
@@ -1757,7 +1760,7 @@ public class PlayerControls : MonoBehaviour
           gameover = true;
           Cursor.visible = false;
           Cursor.lockState = CursorLockMode.Locked;
-          Time.timeScale = 0;
+          // Time.timeScale = 0;
           StartCoroutine(gameOver());
         }
       }
@@ -1869,10 +1872,9 @@ public class PlayerControls : MonoBehaviour
   public IEnumerator gameOver()
   {
     gameoverrunning = true;
-    yield return StartCoroutine(CoroutineUtil.WaitForRealSeconds(5f));
-    Cursor.visible = true;
-    Cursor.lockState = CursorLockMode.None;
-    AudioListener.pause = false;
+    yield return new WaitForSeconds(2f);
+    StartCoroutine(Globals.FadeToBlack(1f, 1.0f));
+    yield return new WaitForSeconds(2f);
     Application.LoadLevel("levelselect");
   }
 }

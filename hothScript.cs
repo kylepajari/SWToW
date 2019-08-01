@@ -15,7 +15,6 @@ public class hothScript : MonoBehaviour
   public bool havenotRun;
 
   public bool shieldDown;
-  public GameObject Fade;
 
   // Use this for initialization
   void Start()
@@ -29,7 +28,7 @@ public class hothScript : MonoBehaviour
     atat3Down = false;
     havenotRun = true;
     shieldDown = false;
-    Fade = GameObject.Find("FadeToBlack");
+    Globals.Fade = GameObject.Find("FadeToBlack");
   }
 
   // Update is called once per frame
@@ -82,7 +81,7 @@ public class hothScript : MonoBehaviour
     if (atatsDestroyed == 3)
     {
       yield return new WaitForSeconds(2f);
-      StartCoroutine(FadeToBlack(1f, 1.0f));
+      StartCoroutine(Globals.FadeToBlack(1f, 1.0f));
       yield return new WaitForSeconds(2f);
       Application.LoadLevel("levelselect");
       //   Application.LoadLevel("level6GoodOutro");
@@ -103,20 +102,9 @@ public class hothScript : MonoBehaviour
     // Application.LoadLevel("level6BadOutro");
     levelCanvas.GetComponent<CanvasGroup>().alpha = 1;
     yield return new WaitForSeconds(2f);
-    StartCoroutine(FadeToBlack(1f, 1.0f));
+    StartCoroutine(Globals.FadeToBlack(1f, 1.0f));
     yield return new WaitForSeconds(2f);
     Application.LoadLevel("levelselect");
-  }
-
-  IEnumerator FadeToBlack(float aValue, float aTime)
-  {
-    float alpha = Fade.GetComponent<CanvasGroup>().alpha;
-    for (float t = 0.0f; t < 1.0f; t += Time.deltaTime / aTime)
-    {
-      float newAlpha = t;
-      Fade.GetComponent<CanvasGroup>().alpha = newAlpha;
-      yield return null;
-    }
   }
 
 }

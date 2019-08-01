@@ -24,7 +24,7 @@ public class LaserHitScript : MonoBehaviour
   {
     if (col.tag == "Empire" || col.tag == "Rebel")
     {
-      if (transform.name.Contains("laser"))
+      if (transform.name.Contains("laser") && !col.name.Contains("Player"))
       {
         Instantiate(sparkEffect, transform.position, transform.rotation);
       }

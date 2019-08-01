@@ -179,13 +179,11 @@ public class ClickScript : MonoBehaviour
   {
     if (change.isOn)
     {
-      print("pitch inverted");
       Globals.pitchInverted = 1;
       pitchInv = Globals.pitchInverted;
     }
     else
     {
-      print("pitch normal");
       Globals.pitchInverted = 0;
       pitchInv = Globals.pitchInverted;
     }

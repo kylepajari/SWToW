@@ -123,7 +123,7 @@ public class levelSelectScript : MonoBehaviour
         image4.SetActive(false);
         image5.SetActive(false);
         lvlname.GetComponent<Text>().text = "'Early Morning Run'";
-        lvldesc.GetComponent<Text>().text = "Our intel suggests that the Empire is storing excess fuel reserves in the Bespin system.   Locate the three floating platforms and destroy the fuel canisters!       *A-Wing Only*";
+        lvldesc.GetComponent<Text>().text = "Our intel suggests that the Empire is storing excess fuel reserves in the Bespin system.   Locate the three floating platforms and destroy the fuel canisters!";
         leftbtn.SetActive(true);
         rightbtn.SetActive(true);
         currentlevel = true;
@@ -136,7 +136,7 @@ public class levelSelectScript : MonoBehaviour
         image4.SetActive(true);
         image5.SetActive(false);
         lvlname.GetComponent<Text>().text = "'Assault on Endor'";
-        lvldesc.GetComponent<Text>().text = "We have discovered the location of an Imperial Fortress on Endor.   The Fortress will be heavily guarded, but we can't spare any fighters to assist you.  If you succeed, the loss of this Fortress will be a major blow to the Empire! ";
+        lvldesc.GetComponent<Text>().text = "We have discovered the location of an Imperial Fortress on Endor.   The Fortress will be heavily guarded. If you succeed, the loss of this Fortress will be a major blow to the Empire! ";
         leftbtn.SetActive(true);
         rightbtn.SetActive(true);
         currentlevel = true;
