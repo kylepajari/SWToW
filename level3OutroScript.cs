@@ -19,7 +19,7 @@ public class level3OutroScript : MonoBehaviour
     maincam = GameObject.Find("Main Camera").transform;
     wincan = GameObject.Find("Canvas");
     wincan.GetComponent<CanvasGroup>().alpha = 0;
-	Globals.Fade = GameObject.Find ("FadeToBlack");
+    Globals.Fade = GameObject.Find("FadeToBlack");
   }
 
   // Update is called once per frame
@@ -101,9 +101,9 @@ public class level3OutroScript : MonoBehaviour
     if (num == 1)
     {
       wincan.GetComponent<CanvasGroup>().alpha = 1;
-      yield return new WaitForSeconds(5f);
-	  StartCoroutine(Globals.FadeToBlack(1f, 1.0f));
-	  yield return new WaitForSeconds(2f);
+      yield return new WaitForSeconds(4f);
+      StartCoroutine(Globals.FadeToBlack(1f, 1.0f));
+      yield return new WaitForSeconds(1f);
       Cursor.visible = true;
       Cursor.lockState = CursorLockMode.None;
       Application.LoadLevel("levelselect");

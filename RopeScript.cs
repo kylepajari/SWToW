@@ -54,6 +54,8 @@ public class RopeScript : MonoBehaviour
   public float highTwistLimit = 100.0F;         //  The upper limit around the primary axis of the character joint.
   public float swing1Limit = 20.0F;         //	The limit around the primary axis of the character joint starting at the initialization point.
 
+  public float origDistance = 0f;
+
   public void Attach()
   {
     BuildRope();
@@ -91,6 +93,15 @@ public class RopeScript : MonoBehaviour
     // Does rope exist? If so, update its position
     if (rope)
     {
+      //continually update length of rope as position changes
+      if (Vector3.Distance(transform.position, target.position) > origDistance)
+      {
+        print("rebuilding rope");
+        RebuildRope();
+      }
+
+
+
       for (int i = 0; i < segments; i++)
       {
         if (i == 0)
@@ -126,6 +137,12 @@ public class RopeScript : MonoBehaviour
     }
   }
 
+  void RebuildRope()
+  {
+    DestroyRope();
+    BuildRope();
+  }
+
 
 
   void BuildRope()
@@ -134,6 +151,7 @@ public class RopeScript : MonoBehaviour
 
     // Find the amount of segments based on the distance and resolution
     // Example: [resolution of 1.0 = 1 joint per unit of distance]
+    origDistance = Vector3.Distance(transform.position, target.position);
     segments = (int)(Vector3.Distance(transform.position, target.position) * resolution);
     line.positionCount = segments;
     segmentPos = new Vector3[segments];
@@ -168,9 +186,7 @@ public class RopeScript : MonoBehaviour
     limit_setter = end.swing1Limit;
     limit_setter.limit = swing1Limit;
     end.swing1Limit = limit_setter;
-    target.parent = transform;
 
-    // Rope = true, The rope now exists in the scene!
     rope = true;
   }
 

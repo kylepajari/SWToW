@@ -24,6 +24,7 @@ public class level2introscript : MonoBehaviour
     tie2 = GameObject.Find("TieParent (1)");
     GameObject gm = GameObject.Find("GameManager");
     DialogCanvas = GameObject.Find("DialogCanvas");
+    Globals.Fade = GameObject.Find("FadeToBlack");
 
   }
 
@@ -99,8 +100,8 @@ public class level2introscript : MonoBehaviour
       StartCoroutine(RotateOverTime(leftwing.transform, Quaternion.Euler(0, 145, 0), 5));
       StartCoroutine(RotateOverTime(rightwing.transform, Quaternion.Euler(0, -145, 0), 5));
       yield return new WaitForSeconds(3f);
-      StartCoroutine(MoveOverTime(tie1.transform, (-tie1.transform.up * 30), 3));
-      StartCoroutine(MoveOverTime(tie2.transform, (-tie2.transform.up * 30), 3));
+      StartCoroutine(MoveOverTime(tie1.transform, (-tie1.transform.up * 40), 3));
+      StartCoroutine(MoveOverTime(tie2.transform, (-tie2.transform.up * 40), 3));
       yield return new WaitForSeconds(1f);
       num = 4;
     }
@@ -119,6 +120,8 @@ public class level2introscript : MonoBehaviour
       yield return new WaitForSeconds(1f);
       StartCoroutine(FadeTo(1f, 2.0f));
       yield return new WaitForSeconds(8f);
+      StartCoroutine(Globals.FadeToBlack(1f, 1.0f));
+      yield return new WaitForSeconds(1f);
       num = 2;
     }
     if (num == 2)

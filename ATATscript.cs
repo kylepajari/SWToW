@@ -244,49 +244,49 @@ public class ATATscript : MonoBehaviour
     /////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
     //right side legs keeping up with rotation
-    StartCoroutine(RotateOverTime(frontRight_Hinge.transform, Quaternion.Euler(0, 0, 0), 4f));
-    StartCoroutine(RotateOverTime(frontRight_Thigh.transform, Quaternion.Euler(0, 90, -15), 4f));
-    StartCoroutine(RotateOverTime(backRight_Hinge.transform, Quaternion.Euler(0, 0, 0), 4f));
-    StartCoroutine(RotateOverTime(backRight_Thigh.transform, Quaternion.Euler(0, 90, -15), 4f));
-    StartCoroutine(RotateOverTime(frontRight_Ankle.transform, Quaternion.Euler(0, 0, 15), 4f));
-    StartCoroutine(RotateOverTime(backRight_Ankle.transform, Quaternion.Euler(0, 0, 15), 4f));
+    StartCoroutine(RotateOverTime(frontRight_Hinge.transform, Quaternion.Euler(0, 0, 0), 2f));
+    StartCoroutine(RotateOverTime(frontRight_Thigh.transform, Quaternion.Euler(0, 90, -15), 2f));
+    StartCoroutine(RotateOverTime(backRight_Hinge.transform, Quaternion.Euler(0, 0, 0), 2f));
+    StartCoroutine(RotateOverTime(backRight_Thigh.transform, Quaternion.Euler(0, 90, -15), 2f));
+    StartCoroutine(RotateOverTime(frontRight_Ankle.transform, Quaternion.Euler(0, 0, 15), 2f));
+    StartCoroutine(RotateOverTime(backRight_Ankle.transform, Quaternion.Euler(0, 0, 15), 2f));
 
     //front left hinge up, back hinge follows
-    StartCoroutine(RotateOverTime(frontLeft_Hinge.transform, Quaternion.Euler(5, 0, 0), 1f));
-    StartCoroutine(RotateOverTime(backLeft_Hinge.transform, Quaternion.Euler(20, 0, 0), 2f));
+    StartCoroutine(RotateOverTime(frontLeft_Hinge.transform, Quaternion.Euler(5, 0, 0), 0.5f));
+    StartCoroutine(RotateOverTime(backLeft_Hinge.transform, Quaternion.Euler(20, 0, 0), 1f));
     //front left shin bending
-    StartCoroutine(RotateOverTime(frontLeft_Shin.transform, Quaternion.Euler(0, 0, -50), 0.5f));
+    StartCoroutine(RotateOverTime(frontLeft_Shin.transform, Quaternion.Euler(0, 0, -50), 0.25f));
     //left side thighs and ankles moving
-    StartCoroutine(RotateOverTime(frontLeft_Thigh.transform, Quaternion.Euler(0, 90, 40), 2f));
-    StartCoroutine(RotateOverTime(backLeft_Thigh.transform, Quaternion.Euler(0, 90, -50), 2f));
-    StartCoroutine(RotateOverTime(frontLeft_Ankle.transform, Quaternion.Euler(0, 0, -25), 2f));
-    StartCoroutine(RotateOverTime(backLeft_Ankle.transform, Quaternion.Euler(0, 0, 30), 2f));
+    StartCoroutine(RotateOverTime(frontLeft_Thigh.transform, Quaternion.Euler(0, 90, 40), 1f));
+    StartCoroutine(RotateOverTime(backLeft_Thigh.transform, Quaternion.Euler(0, 90, -50), 1f));
+    StartCoroutine(RotateOverTime(frontLeft_Ankle.transform, Quaternion.Euler(0, 0, -25), 1f));
+    StartCoroutine(RotateOverTime(backLeft_Ankle.transform, Quaternion.Euler(0, 0, 30), 1f));
 
 
-    yield return new WaitForSeconds(1f);
+    yield return new WaitForSeconds(0.5f);
     //shin and hinge moving back down
-    StartCoroutine(RotateOverTime(frontLeft_Shin.transform, Quaternion.Euler(0, 0, 0), 1f));
-    StartCoroutine(RotateOverTime(frontLeft_Hinge.transform, Quaternion.Euler(-15, 0, 0), 1f));
-    yield return new WaitForSeconds(1f);
+    StartCoroutine(RotateOverTime(frontLeft_Shin.transform, Quaternion.Euler(0, 0, 0), 0.5f));
+    StartCoroutine(RotateOverTime(frontLeft_Hinge.transform, Quaternion.Euler(-15, 0, 0), 0.5f));
+    yield return new WaitForSeconds(0.5f);
 
 
     //back left leg up, front hinge follows
-    StartCoroutine(RotateOverTime(backLeft_Hinge.transform, Quaternion.Euler(-10, 0, 0), 1f));
-    StartCoroutine(RotateOverTime(frontLeft_Hinge.transform, Quaternion.Euler(-5, 0, 0), 2f));
+    StartCoroutine(RotateOverTime(backLeft_Hinge.transform, Quaternion.Euler(-10, 0, 0), 0.5f));
+    StartCoroutine(RotateOverTime(frontLeft_Hinge.transform, Quaternion.Euler(-5, 0, 0), 1f));
     //back left shin bending
-    StartCoroutine(RotateOverTime(backLeft_Shin.transform, Quaternion.Euler(0, 0, -20), 1f));
+    StartCoroutine(RotateOverTime(backLeft_Shin.transform, Quaternion.Euler(0, 0, -20), 0.25f));
     //left side thighs and ankles moving
-    StartCoroutine(RotateOverTime(backLeft_Thigh.transform, Quaternion.Euler(0, 90, 10), 1f));
-    StartCoroutine(RotateOverTime(frontLeft_Thigh.transform, Quaternion.Euler(0, 90, 15), 2f));
-    StartCoroutine(RotateOverTime(backLeft_Ankle.transform, Quaternion.Euler(0, 0, 0), 1f));
-    StartCoroutine(RotateOverTime(frontLeft_Ankle.transform, Quaternion.Euler(0, 0, 0), 2f));
+    StartCoroutine(RotateOverTime(backLeft_Thigh.transform, Quaternion.Euler(0, 90, 10), 0.5f));
+    StartCoroutine(RotateOverTime(frontLeft_Thigh.transform, Quaternion.Euler(0, 90, 15), 1f));
+    StartCoroutine(RotateOverTime(backLeft_Ankle.transform, Quaternion.Euler(0, 0, 0), 0.5f));
+    StartCoroutine(RotateOverTime(frontLeft_Ankle.transform, Quaternion.Euler(0, 0, 0), 1f));
 
-    yield return new WaitForSeconds(1f);
+    yield return new WaitForSeconds(0.5f);
     //thigh and ankle moving back down
-    StartCoroutine(RotateOverTime(backLeft_Ankle.transform, Quaternion.Euler(0, 0, -20), 1f));
-    StartCoroutine(RotateOverTime(backLeft_Shin.transform, Quaternion.Euler(0, 0, 0), 1f));
-    StartCoroutine(RotateOverTime(backLeft_Hinge.transform, Quaternion.Euler(10, 0, 0), 1f));
-    yield return new WaitForSeconds(1f);
+    StartCoroutine(RotateOverTime(backLeft_Ankle.transform, Quaternion.Euler(0, 0, -20), 0.5f));
+    StartCoroutine(RotateOverTime(backLeft_Shin.transform, Quaternion.Euler(0, 0, 0), 0.5f));
+    StartCoroutine(RotateOverTime(backLeft_Hinge.transform, Quaternion.Euler(10, 0, 0), 0.5f));
+    yield return new WaitForSeconds(0.5f);
     /////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
 
@@ -295,47 +295,47 @@ public class ATATscript : MonoBehaviour
     /////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
     //left side legs keeping up with rotation
-    StartCoroutine(RotateOverTime(frontLeft_Hinge.transform, Quaternion.Euler(-15, 0, 0), 4f));
-    StartCoroutine(RotateOverTime(frontLeft_Thigh.transform, Quaternion.Euler(0, 90, 0), 4f));
-    StartCoroutine(RotateOverTime(backLeft_Hinge.transform, Quaternion.Euler(15, 0, 0), 4f));
-    StartCoroutine(RotateOverTime(backLeft_Thigh.transform, Quaternion.Euler(0, 90, -30), 4f));
-    StartCoroutine(RotateOverTime(frontLeft_Ankle.transform, Quaternion.Euler(0, 0, 15), 4f));
-    StartCoroutine(RotateOverTime(backLeft_Ankle.transform, Quaternion.Euler(0, 0, 15), 4f));
+    StartCoroutine(RotateOverTime(frontLeft_Hinge.transform, Quaternion.Euler(-15, 0, 0), 2f));
+    StartCoroutine(RotateOverTime(frontLeft_Thigh.transform, Quaternion.Euler(0, 90, 0), 2f));
+    StartCoroutine(RotateOverTime(backLeft_Hinge.transform, Quaternion.Euler(15, 0, 0), 2f));
+    StartCoroutine(RotateOverTime(backLeft_Thigh.transform, Quaternion.Euler(0, 90, -30), 2f));
+    StartCoroutine(RotateOverTime(frontLeft_Ankle.transform, Quaternion.Euler(0, 0, 15), 2f));
+    StartCoroutine(RotateOverTime(backLeft_Ankle.transform, Quaternion.Euler(0, 0, 15), 2f));
 
     //front right leg up
-    StartCoroutine(RotateOverTime(frontRight_Hinge.transform, Quaternion.Euler(5, 0, 0), 1f));
-    StartCoroutine(RotateOverTime(backRight_Hinge.transform, Quaternion.Euler(20, 0, 0), 2f));
+    StartCoroutine(RotateOverTime(frontRight_Hinge.transform, Quaternion.Euler(5, 0, 0), 0.5f));
+    StartCoroutine(RotateOverTime(backRight_Hinge.transform, Quaternion.Euler(20, 0, 0), 1f));
     //shin bending
-    StartCoroutine(RotateOverTime(frontRight_Shin.transform, Quaternion.Euler(0, 0, -50), 0.5f));
+    StartCoroutine(RotateOverTime(frontRight_Shin.transform, Quaternion.Euler(0, 0, -50), 0.25f));
     //right side thighs and ankles moving
-    StartCoroutine(RotateOverTime(frontRight_Thigh.transform, Quaternion.Euler(0, 90, 40), 2f));
-    StartCoroutine(RotateOverTime(backRight_Thigh.transform, Quaternion.Euler(0, 90, -50), 2f));
-    StartCoroutine(RotateOverTime(frontRight_Ankle.transform, Quaternion.Euler(0, 0, -25), 2f));
-    StartCoroutine(RotateOverTime(backRight_Ankle.transform, Quaternion.Euler(0, 0, 30), 2f));
+    StartCoroutine(RotateOverTime(frontRight_Thigh.transform, Quaternion.Euler(0, 90, 40), 1f));
+    StartCoroutine(RotateOverTime(backRight_Thigh.transform, Quaternion.Euler(0, 90, -50), 1f));
+    StartCoroutine(RotateOverTime(frontRight_Ankle.transform, Quaternion.Euler(0, 0, -25), 1f));
+    StartCoroutine(RotateOverTime(backRight_Ankle.transform, Quaternion.Euler(0, 0, 30), 1f));
 
-    yield return new WaitForSeconds(1f);
+    yield return new WaitForSeconds(0.5f);
     //thigh and ankle moving back down
-    StartCoroutine(RotateOverTime(frontRight_Shin.transform, Quaternion.Euler(0, 0, 0), 1f));
-    StartCoroutine(RotateOverTime(frontRight_Hinge.transform, Quaternion.Euler(-15, 0, 0), 1f));
+    StartCoroutine(RotateOverTime(frontRight_Shin.transform, Quaternion.Euler(0, 0, 0), 0.5f));
+    StartCoroutine(RotateOverTime(frontRight_Hinge.transform, Quaternion.Euler(-15, 0, 0), 0.5f));
 
-    yield return new WaitForSeconds(1f);
+    yield return new WaitForSeconds(0.5f);
     //back right leg up, front hinge follows
-    StartCoroutine(RotateOverTime(backRight_Hinge.transform, Quaternion.Euler(-10, 0, 0), 1f));
-    StartCoroutine(RotateOverTime(frontRight_Hinge.transform, Quaternion.Euler(-5, 0, 0), 2f));
+    StartCoroutine(RotateOverTime(backRight_Hinge.transform, Quaternion.Euler(-10, 0, 0), 0.5f));
+    StartCoroutine(RotateOverTime(frontRight_Hinge.transform, Quaternion.Euler(-5, 0, 0), 1f));
     //back left shin bending
-    StartCoroutine(RotateOverTime(backRight_Shin.transform, Quaternion.Euler(0, 0, -20), 1f));
+    StartCoroutine(RotateOverTime(backRight_Shin.transform, Quaternion.Euler(0, 0, -20), 0.25f));
     //right side thighs and ankles moving
-    StartCoroutine(RotateOverTime(backRight_Thigh.transform, Quaternion.Euler(0, 90, 10), 1f));
-    StartCoroutine(RotateOverTime(frontRight_Thigh.transform, Quaternion.Euler(0, 90, 15), 2f));
-    StartCoroutine(RotateOverTime(backRight_Ankle.transform, Quaternion.Euler(0, 0, 0), 1f));
-    StartCoroutine(RotateOverTime(frontRight_Ankle.transform, Quaternion.Euler(0, 0, 0), 2f));
+    StartCoroutine(RotateOverTime(backRight_Thigh.transform, Quaternion.Euler(0, 90, 10), 0.5f));
+    StartCoroutine(RotateOverTime(frontRight_Thigh.transform, Quaternion.Euler(0, 90, 15), 1f));
+    StartCoroutine(RotateOverTime(backRight_Ankle.transform, Quaternion.Euler(0, 0, 0), 0.5f));
+    StartCoroutine(RotateOverTime(frontRight_Ankle.transform, Quaternion.Euler(0, 0, 0), 1f));
 
-    yield return new WaitForSeconds(1f);
+    yield return new WaitForSeconds(0.5f);
     //thigh and ankle moving back down
-    StartCoroutine(RotateOverTime(backRight_Ankle.transform, Quaternion.Euler(0, 0, -20), 1f));
-    StartCoroutine(RotateOverTime(backRight_Shin.transform, Quaternion.Euler(0, 0, 0), 1f));
-    StartCoroutine(RotateOverTime(backRight_Hinge.transform, Quaternion.Euler(10, 0, 0), 1f));
-    yield return new WaitForSeconds(1f);
+    StartCoroutine(RotateOverTime(backRight_Ankle.transform, Quaternion.Euler(0, 0, -20), 0.5f));
+    StartCoroutine(RotateOverTime(backRight_Shin.transform, Quaternion.Euler(0, 0, 0), 0.5f));
+    StartCoroutine(RotateOverTime(backRight_Hinge.transform, Quaternion.Euler(10, 0, 0), 0.5f));
+    yield return new WaitForSeconds(0.5f);
     isWalking = false;
   }
 

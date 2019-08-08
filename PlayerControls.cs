@@ -24,6 +24,8 @@ public class PlayerControls : MonoBehaviour
   public Transform IonCannon;
 
   public GameObject laser;
+
+  public float laserSpeed = 350f;
   public GameObject ionlaser;
 
   public Transform xwing;
@@ -734,7 +736,7 @@ public class PlayerControls : MonoBehaviour
             {
               GameObject laser1 = Instantiate(laser, cannon.transform.position, cannon.transform.rotation) as GameObject;
               laser1.tag = "PlayersLaser";
-              laser1.GetComponent<Rigidbody>().AddForce(transform.forward * (playerSpeed * 10f), ForceMode.Impulse);
+              laser1.GetComponent<Rigidbody>().AddForce(transform.forward * (laserSpeed), ForceMode.Impulse);
               shoot.Play();
               fireOrder += 1;
               nextShot = false;
@@ -745,7 +747,7 @@ public class PlayerControls : MonoBehaviour
             {
               GameObject laser2 = Instantiate(laser, cannon4.transform.position, cannon4.transform.rotation) as GameObject;
               laser2.tag = "PlayersLaser";
-              laser2.GetComponent<Rigidbody>().AddForce(transform.forward * (playerSpeed * 10f), ForceMode.Impulse);
+              laser2.GetComponent<Rigidbody>().AddForce(transform.forward * (laserSpeed), ForceMode.Impulse);
               shoot.Play();
               fireOrder += 1;
               nextShot = false;
@@ -756,7 +758,7 @@ public class PlayerControls : MonoBehaviour
             {
               GameObject laser3 = Instantiate(laser, cannon2.transform.position, cannon2.transform.rotation) as GameObject;
               laser3.tag = "PlayersLaser";
-              laser3.GetComponent<Rigidbody>().AddForce(transform.forward * (playerSpeed * 10f), ForceMode.Impulse);
+              laser3.GetComponent<Rigidbody>().AddForce(transform.forward * (laserSpeed), ForceMode.Impulse);
               shoot.Play();
               fireOrder += 1;
               nextShot = false;
@@ -767,7 +769,7 @@ public class PlayerControls : MonoBehaviour
             {
               GameObject laser4 = Instantiate(laser, cannon3.transform.position, cannon3.transform.rotation) as GameObject;
               laser4.tag = "PlayersLaser";
-              laser4.GetComponent<Rigidbody>().AddForce(transform.forward * (playerSpeed * 10f), ForceMode.Impulse);
+              laser4.GetComponent<Rigidbody>().AddForce(transform.forward * (laserSpeed), ForceMode.Impulse);
               shoot.Play();
               fireOrder = 1;
               nextShot = false;
@@ -783,7 +785,7 @@ public class PlayerControls : MonoBehaviour
           {
             GameObject laser1 = Instantiate(laser, cannon2.transform.position, cannon2.transform.rotation) as GameObject;
             laser1.tag = "PlayersLaser";
-            laser1.GetComponent<Rigidbody>().AddForce(transform.forward * (playerSpeed * 10f), ForceMode.Impulse);
+            laser1.GetComponent<Rigidbody>().AddForce(transform.forward * (laserSpeed), ForceMode.Impulse);
             shoot.Play();
             fireOrder += 1;
             nextShot = false;
@@ -794,7 +796,7 @@ public class PlayerControls : MonoBehaviour
           {
             GameObject laser2 = Instantiate(laser, cannon.transform.position, cannon.transform.rotation) as GameObject;
             laser2.tag = "PlayersLaser";
-            laser2.GetComponent<Rigidbody>().AddForce(transform.forward * (playerSpeed * 10f), ForceMode.Impulse);
+            laser2.GetComponent<Rigidbody>().AddForce(transform.forward * (laserSpeed), ForceMode.Impulse);
             shoot.Play();
             fireOrder = 1;
             nextShot = false;
@@ -808,7 +810,7 @@ public class PlayerControls : MonoBehaviour
           {
             GameObject laser1 = Instantiate(laser, cannon.transform.position, cannon.transform.rotation) as GameObject;
             laser1.tag = "PlayersLaser";
-            laser1.GetComponent<Rigidbody>().AddForce(transform.forward * (playerSpeed * 10f), ForceMode.Impulse);
+            laser1.GetComponent<Rigidbody>().AddForce(transform.forward * (laserSpeed), ForceMode.Impulse);
             shoot.Play();
             fireOrder += 1;
             nextShot = false;
@@ -819,7 +821,7 @@ public class PlayerControls : MonoBehaviour
           {
             GameObject laser2 = Instantiate(laser, cannon2.transform.position, cannon2.transform.rotation) as GameObject;
             laser2.tag = "PlayersLaser";
-            laser2.GetComponent<Rigidbody>().AddForce(transform.forward * (playerSpeed * 10f), ForceMode.Impulse);
+            laser2.GetComponent<Rigidbody>().AddForce(transform.forward * (laserSpeed), ForceMode.Impulse);
             shoot.Play();
             fireOrder = 1;
             nextShot = false;
@@ -833,7 +835,7 @@ public class PlayerControls : MonoBehaviour
           {
             GameObject laser1 = Instantiate(laser, cannon.transform.position, cannon.transform.rotation) as GameObject;
             laser1.tag = "PlayersLaser";
-            laser1.GetComponent<Rigidbody>().AddForce(transform.forward * (playerSpeed * 10f), ForceMode.Impulse);
+            laser1.GetComponent<Rigidbody>().AddForce(transform.forward * (laserSpeed), ForceMode.Impulse);
             shoot.Play();
             fireOrder += 1;
             nextShot = false;
@@ -844,7 +846,7 @@ public class PlayerControls : MonoBehaviour
           {
             GameObject laser2 = Instantiate(laser, cannon2.transform.position, cannon2.transform.rotation) as GameObject;
             laser2.tag = "PlayersLaser";
-            laser2.GetComponent<Rigidbody>().AddForce(transform.forward * (playerSpeed * 10f), ForceMode.Impulse);
+            laser2.GetComponent<Rigidbody>().AddForce(transform.forward * (laserSpeed), ForceMode.Impulse);
             shoot.Play();
             fireOrder += 1;
             nextShot = false;
@@ -854,7 +856,7 @@ public class PlayerControls : MonoBehaviour
           {
             GameObject laser3 = Instantiate(laser, cannon3.transform.position, cannon3.transform.rotation) as GameObject;
             laser3.tag = "PlayersLaser";
-            laser3.GetComponent<Rigidbody>().AddForce(transform.forward * (playerSpeed * 10f), ForceMode.Impulse);
+            laser3.GetComponent<Rigidbody>().AddForce(transform.forward * (laserSpeed), ForceMode.Impulse);
             shoot.Play();
             fireOrder += 1;
             nextShot = false;
@@ -864,7 +866,7 @@ public class PlayerControls : MonoBehaviour
           {
             GameObject laser4 = Instantiate(laser, cannon4.transform.position, cannon4.transform.rotation) as GameObject;
             laser4.tag = "PlayersLaser";
-            laser4.GetComponent<Rigidbody>().AddForce(transform.forward * (playerSpeed * 10f), ForceMode.Impulse);
+            laser4.GetComponent<Rigidbody>().AddForce(transform.forward * (laserSpeed), ForceMode.Impulse);
             shoot.Play();
             fireOrder = 1;
             nextShot = false;
@@ -878,7 +880,7 @@ public class PlayerControls : MonoBehaviour
           {
             GameObject laser1 = Instantiate(laser, cannon2.transform.position, cannon2.transform.rotation) as GameObject;
             laser1.tag = "PlayersLaser";
-            laser1.GetComponent<Rigidbody>().AddForce(transform.forward * (playerSpeed * 25f), ForceMode.Impulse);
+            laser1.GetComponent<Rigidbody>().AddForce(transform.forward * (laserSpeed * 1.5f), ForceMode.Impulse);
             shoot.Play();
             fireOrder += 1;
             nextShot = false;
@@ -888,7 +890,7 @@ public class PlayerControls : MonoBehaviour
           {
             GameObject laser2 = Instantiate(laser, cannon3.transform.position, cannon3.transform.rotation) as GameObject;
             laser2.tag = "PlayersLaser";
-            laser2.GetComponent<Rigidbody>().AddForce(transform.forward * (playerSpeed * 25f), ForceMode.Impulse);
+            laser2.GetComponent<Rigidbody>().AddForce(transform.forward * (laserSpeed * 1.5f), ForceMode.Impulse);
             shoot.Play();
             fireOrder += 1;
             nextShot = false;
@@ -898,7 +900,7 @@ public class PlayerControls : MonoBehaviour
           {
             GameObject laser3 = Instantiate(laser, cannon4.transform.position, cannon4.transform.rotation) as GameObject;
             laser3.tag = "PlayersLaser";
-            laser3.GetComponent<Rigidbody>().AddForce(transform.forward * (playerSpeed * 25f), ForceMode.Impulse);
+            laser3.GetComponent<Rigidbody>().AddForce(transform.forward * (laserSpeed * 1.5f), ForceMode.Impulse);
             shoot.Play();
             fireOrder += 1;
             nextShot = false;
@@ -908,7 +910,7 @@ public class PlayerControls : MonoBehaviour
           {
             GameObject laser4 = Instantiate(laser, cannon.transform.position, cannon.transform.rotation) as GameObject;
             laser4.tag = "PlayersLaser";
-            laser4.GetComponent<Rigidbody>().AddForce(transform.forward * (playerSpeed * 25f), ForceMode.Impulse);
+            laser4.GetComponent<Rigidbody>().AddForce(transform.forward * (laserSpeed * 1.5f), ForceMode.Impulse);
             shoot.Play();
             fireOrder = 1;
             nextShot = false;
@@ -922,10 +924,10 @@ public class PlayerControls : MonoBehaviour
           {
             GameObject laser1 = Instantiate(laser, cannon.transform.position, cannon.transform.rotation) as GameObject;
             laser1.tag = "PlayersLaser";
-            laser1.GetComponent<Rigidbody>().AddForce(transform.forward * (playerSpeed * 10f), ForceMode.Impulse);
+            laser1.GetComponent<Rigidbody>().AddForce(transform.forward * (laserSpeed), ForceMode.Impulse);
             GameObject laser2 = Instantiate(laser, cannon2.transform.position, cannon2.transform.rotation) as GameObject;
             laser2.tag = "PlayersLaser";
-            laser2.GetComponent<Rigidbody>().AddForce(transform.forward * (playerSpeed * 10f), ForceMode.Impulse);
+            laser2.GetComponent<Rigidbody>().AddForce(transform.forward * (laserSpeed), ForceMode.Impulse);
             shoot.Play();
             fireOrder = 1;
             nextShot = false;
@@ -939,7 +941,7 @@ public class PlayerControls : MonoBehaviour
           {
             GameObject laser1 = Instantiate(laser, cannon2.transform.position, cannon2.transform.rotation) as GameObject;
             laser1.tag = "PlayersLaser";
-            laser1.GetComponent<Rigidbody>().AddForce(transform.forward * (playerSpeed * 10f), ForceMode.Impulse);
+            laser1.GetComponent<Rigidbody>().AddForce(transform.forward * (laserSpeed), ForceMode.Impulse);
             shoot.Play();
             fireOrder += 1;
             nextShot = false;
@@ -950,7 +952,7 @@ public class PlayerControls : MonoBehaviour
           {
             GameObject laser2 = Instantiate(laser, cannon.transform.position, cannon.transform.rotation) as GameObject;
             laser2.tag = "PlayersLaser";
-            laser2.GetComponent<Rigidbody>().AddForce(transform.forward * (playerSpeed * 10f), ForceMode.Impulse);
+            laser2.GetComponent<Rigidbody>().AddForce(transform.forward * (laserSpeed), ForceMode.Impulse);
             shoot.Play();
             fireOrder = 1;
             nextShot = false;
